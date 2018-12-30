@@ -1,0 +1,23 @@
+historian - a db, keeps a history of IOT data. Called wonderware. Receive info from sensors and stores that data
+
+The customer would like to use splunk to run analytics on the data
+
+Historian => ACCESS W SQL => Lands in Splunnk 
+
+Process, Query historian pump the data out to a file locally. That file is then pushed up to the
+splunk server, and splunk imports it from there.
+
+Today we set up the SQL 
+
+The UI will intake certain information eg name of location
+
+Index- splunk term, how they are going to look up the data
+
+Sprint
+Functionality
+
+New index working
+Modal
+
+New Tag
+Remove Tag

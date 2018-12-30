@@ -1,5 +1,8 @@
 import * as React from 'react'
 
+import { connect } from 'react-redux';
+import * as ActionGroup from '../actions'
+
 import {
     Grid,
     GridColumn as Column,
@@ -8,59 +11,6 @@ import {
 
 import { Paper, Button } from '@material-ui/core';
 import { DateCell } from './CustomCells';
-
-const date= new Date('November 23, 2018 21:55:00')
-
-const tableData: any = [
-    {
-        index: "Galaxy_SWD",
-        location: "Galaxy",
-        status: "Production",
-        lastRun: date,
-        runStatus: "Success"
-    },
-
-    {
-        index: "Galaxy_1",
-        location: "Galaxy",
-        status: "Production",
-        lastRun: date,
-        runStatus: "Failed"
-    },
-
-    {
-        index: "Galaxy_2",
-        location: "Galaxy",
-        status: "Production",
-        lastRun: date,
-        runStatus: "Sucess"
-    },
-
-    {
-        index: "Quale_SWD",
-        location: "Quale",
-        status: "Production",
-        lastRun: date,
-        runStatus: "Success"
-    },
-
-    {
-        index: "Quale_1",
-        location: "Quale",
-        status: "Production",
-        lastRun: date,
-        runStatus: "Success"
-    },
-
-    {
-        index: "Dahl_SWD",
-        location: "Dahl",
-        status: "Production",
-        lastRun: date,
-        runStatus: "Success"
-    },
-
-];
 
 const styles = {
     paper: {
@@ -80,20 +30,22 @@ const styles = {
 
   }
 
-class SplunkGrid extends React.Component<any, {}> {
+class IndicesGrid extends React.Component<any, {}> {
 
     public constructor(props: any) {
         super(props);
     }
 
     render() {
+        const {data, onRowClick} = this.props
+
         return (
             <React.Fragment>
             <Paper style={styles.paper}>
                 < Grid 
                     style={styles.grid}
-                    data={tableData}
-                    editField="inEdit"
+                    data={data}
+                    onRowClick={onRowClick}
                     filterable
                     resizable
                     sortable
@@ -120,5 +72,20 @@ class SplunkGrid extends React.Component<any, {}> {
     }
 }
 
+function mapStateToProps(state: any) {
+    return {
+        data: state.indicesGrid.data,
+        selected: state.indicesGrid.selected,
+    }
+}
 
-export default SplunkGrid;
+function mapDispatchToProps(dispatch: any) {
+    return {
+        onRowClick: (e: any) => {
+            dispatch(ActionGroup.onRowClickIG(e.dataItem))
+        }
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(IndicesGrid);
