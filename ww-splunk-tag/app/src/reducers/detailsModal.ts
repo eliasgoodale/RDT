@@ -1,6 +1,10 @@
+import { compare } from 'fast-json-patch'
+
 const initialState = {
-    visible: true, 
+    visible: true,
     selected: {},
+    backup: {},
+    patch: [],
 }
 
 export default (state=initialState, action: any) => {
@@ -20,11 +24,18 @@ export default (state=initialState, action: any) => {
                 ...state,
                 selected: action.payload
             }
-        case 'detailsModal/CHANGE_FORM_DATA':
-            const { field, value } = action.payload
+        case 'detailsModal/LOAD_BACKUP':
             return {
                 ...state,
-                selected: { ...state.selected, [field]: value}
+                backup: action.payload
+            }
+        case 'detailsModal/CHANGE_FORM_DATA':
+            const { field, value } = action.payload
+            const newSelected = { ...state.selected, [field]: value}
+            return {
+                ...state,
+                selected: newSelected,
+                patch: compare(state.selected, newSelected)
             }
         default:
             return state

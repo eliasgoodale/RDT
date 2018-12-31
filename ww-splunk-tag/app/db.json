@@ -1,82 +1,85 @@
 {
-    "indices": [
+  "indices": [
+    {
+      "id": "8fs9cde",
+      "index": "Galaxy_SWD",
+      "location": "Galaxy",
+      "status": "Test",
+      "lastRun": "August 19, 1975 9:00 am",
+      "runStatus": "Success",
+      "entity": "Producer",
+      "nextRun": "August 19, 1975 9:00 am",
+      "tags": [
         {
-            "index": "Galaxy_SWD",
-            "location": "Galaxy",
-            "status": "Production",
-            "lastRun": "August 19, 1975 9:00 am",
-            "runStatus": "Success",
-            "entity": "Producer",
-            "nextRun": "August 19, 1975 9:00 am",
-            "tags": [
-                {
-                    "prefix": "NDGAL_",
-                    "historianTag": "NDGAL_DPIT_301.Value",
-                    "splunkTag": "DPIT_301.Value"
-                },
-                {
-                    "prefix": "NDGAL_",
-                    "historianTag": "NDGAL_FIT_20101.Temperature",
-                    "splunkTag": "FIT_20101.Temperature"
-                },
-                {
-                    "prefix": "NDSNS_",
-                    "historianTag": "NDSNS_FIT_221a.Total_Continuous",
-                    "splunkTag": "FIT_221a.Total_Continuous"
-                }
-            ]
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_DPIT_301.Value",
+          "splunkTag": "DPIT_301.Value"
         },
         {
-            "index": "Quale_SWD",
-            "location": "Quale",
-            "status": "Production",
-            "lastRun": "August 19, 1975 9:00 am",
-            "runStatus": "Success",
-            "entity": "Producer",
-            "nextRun": "August 19, 1975 9:00 am",
-            "tags": [
-                {
-                    "prefix": "NDGAL_",
-                    "historianTag": "NDGAL_FIT_20101.Total_Today",
-                    "splunkTag": "FIT_2101.Total_Today"
-                },
-                {
-                    "prefix": "NDGAL_",
-                    "historianTag": "NDGAL_FIT_33263.Temperature",
-                    "splunkTag": "FIT_33263.Temperature"
-                },
-                {
-                    "prefix": "NDSNS_",
-                    "historianTag": "NDSNS_FIT_221a.Total_Continuous",
-                    "splunkTag": "FIT_221a.Total_Continuous"
-                }
-            ]
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_FIT_20101.Temperature",
+          "splunkTag": "FIT_20101.Temperature"
         },
         {
-            "index": "Dahl_SWD",
-            "location": "Dahl",
-            "status": "Production",
-            "lastRun": "August 19, 1975 9:00 am",
-            "runStatus": "Success",
-            "entity": "Producer",
-            "nextRun": "August 19, 1975 9:00 am",
-            "tags": [
-                {
-                    "prefix": "NDGAL_",
-                    "historianTag": "NDGAL_DPIT_902.Value",
-                    "splunkTag": "DPIT_902.Value"
-                },
-                {
-                    "prefix": "NDGAL_",
-                    "historianTag": "NDGAL_FIT_33172.Temperature",
-                    "splunkTag": "FIT_33172.Temperature"
-                },
-                {
-                    "prefix": "NDSNS_",
-                    "historianTag": "NDSNS_FIT_55834.Total_Continuous",
-                    "splunkTag": "FIT_55834.Total_Continuous"
-                }    
-            ]
+          "prefix": "NDSNS_",
+          "historianTag": "NDSNS_FIT_221a.Total_Continuous",
+          "splunkTag": "FIT_221a.Total_Continuous"
         }
-    ]
+      ]
+    },
+    {
+      "id": "3389ffd",
+      "index": "Quale_SWD",
+      "location": "Quale",
+      "status": "Production",
+      "lastRun": "August 19, 1975 9:00 am",
+      "runStatus": "Success",
+      "entity": "Producer",
+      "nextRun": "August 19, 1975 9:00 am",
+      "tags": [
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_FIT_20101.Total_Today",
+          "splunkTag": "FIT_2101.Total_Today"
+        },
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_FIT_33263.Temperature",
+          "splunkTag": "FIT_33263.Temperature"
+        },
+        {
+          "prefix": "NDSNS_",
+          "historianTag": "NDSNS_FIT_221a.Total_Continuous",
+          "splunkTag": "FIT_221a.Total_Continuous"
+        }
+      ]
+    },
+    {
+      "id": "jd9d9d",
+      "index": "Dahl_SWD",
+      "location": "Dahl",
+      "status": "Production",
+      "lastRun": "August 19, 1975 9:00 am",
+      "runStatus": "Success",
+      "entity": "Producer",
+      "nextRun": "August 19, 1975 9:00 am",
+      "tags": [
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_DPIT_902.Value",
+          "splunkTag": "DPIT_902.Value"
+        },
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_FIT_33172.Temperature",
+          "splunkTag": "FIT_33172.Temperature"
+        },
+        {
+          "prefix": "NDSNS_",
+          "historianTag": "NDSNS_FIT_55834.Total_Continuous",
+          "splunkTag": "FIT_55834.Total_Continuous"
+        }
+      ]
+    }
+  ]
 }

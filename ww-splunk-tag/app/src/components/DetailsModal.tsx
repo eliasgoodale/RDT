@@ -3,113 +3,154 @@ import { useState } from 'react'
 
 import * as ActionGroup from '../actions'
 
-//import { Splitter } from '@progress/kendo-react-layout'
+import { Splitter } from '@progress/kendo-react-layout'
+
 import { Grid, GridColumn as Column, GridToolbar } from '@progress/kendo-react-grid'
-//import { Input } from '@progress/kendo-react-inputs'
-
+import { Input } from '@progress/kendo-react-inputs'
+import { DropDownList } from '@progress/kendo-react-dropdowns'
+import { Button } from '@progress/kendo-react-buttons'
 import { connect } from 'react-redux';
+import { DatePicker } from '@progress/kendo-react-dateinputs';
 
-// const defaultPaneState = [
-//     { size: '50%', min: '20px', collapsible: true },
-//     { }
-// ]
+const panesDefault = [
+    { size: '50%', min: '20px', resizable: false},
+    { }
+]
 
-function Example() {
-    // Declare a new state variable, which we'll call "count"
-    const [count, setCount] = useState(0);
-  
+const styles = {
+    button: {
+        margin: '5px'
+    }
+}
+
+
+const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
+
+    const [panes, setpanes] = useState(panesDefault)
     return (
-      <div>
-        <p>You clicked {count} times</p>
-        <button onClick={() => setCount(count + 1)}>
-          Click me
-        </button>
-      </div>
-    );
-  }
 
-// const DetailsForm = ({handleSubmit, onChange, selected}: any): any => {
-//     const [panes, setPanes] = useState(defaultPaneState)
-//     return (
+       <Splitter
+           panes={panes}
+           onLayoutChange={(updatedState:any) => setpanes(updatedState)}
+       >
+           <div className="pane-content">
+           <Input
+                name="index"
+                label="Index"
+                value={selected.index}
+                onChange={onChange}
+            />
+            <br/>
+            <Input
+                name="location"
+                label="Location"
+                value={selected.location}
+                onChange={onChange}
+            />
+            <br/>
+            <DropDownList
+                name="status"
+                label="Status"
+                value={selected.status}
+                data={['Production', 'Test', 'Inactive']}
+                onChange={onChange}
+            />
+            <div className="k-form-field">
 
-//         <form className="k-form" onSubmit={handleSubmit}>
-//         <fieldset>
-//             <legend>Input Values</legend>
-//             <Splitter 
-//             panes={panes}
-//             orientation='vertical'
-//             onLayoutChange={(updatedState: any) => setPanes(updatedState)} >
+            <input
+                type="radio"
+                name="entity"
+                value="Producer"
+                id="producer-entity"
+                className="k-radio"
+                checked={selected.entity === 'Producer'}
+                onChange={onChange}
+            />
+            <label className="k-radio-label" htmlFor="producer-entity">Producer</label>
+            <br/>
+            <input
+                type="radio"
+                name="entity"
+                value="SWD"
+                id="swd-entity"
+                className="k-radio"
+                checked={selected.entity === 'SWD'}
+                onChange={onChange}
+            />
+            <label className="k-radio-label" htmlFor="swd-entity">SWD</label>
+            </div>
+           </div>
 
-//             {/* Left Pane */}
-//             <div className="pane-content">
-//                 <div className="mb-3">
-//                     <Input
-//                         name="index"
-//                         label="Index"
-//                         value={selected.index}
-//                         onChange={onChange}
-//                     />
-//                 </div>
-//                 <div className="mb-3">
-//                     <Input
-//                         name="location"
-//                         label="Location"
-//                         value={selected.location}
-//                         onChange={onChange}
-//                     />
-//                 </div>
-//                 <div className="mb-3">
-//                     <Input
-//                         name="status"
-//                         label="Status"
-//                         value={selected.status}
-//                         onChange={onChange}
-//                     />
-//                 </div>
-//             </div>
+           <div className="pane-content">
 
-//              {/* Right Pane */}
-//             <div className="pane-content">
-//                 <div className="mb-3">
-//                     <Input
-//                         name="lastRun"
-//                         label="Last Run"
-//                         value={selected.lastRun}
-//                         onChange={onChange}
-//                     />
-//                 </div>
-//                 <div className="mb-3">
-//                     <Input
-//                         name="runStatus"
-//                         label="Run Status"
-//                         value={selected.runStatus}
-//                         onChange={onChange}
-//                     />
-//                 </div>
-//             </div>
-            
-//             </Splitter>
-//         </fieldset>
-//         <input type="submit" className="k-button k-primary" value="Search" />
-//     </form>
-//     )
-// }
+           <Button 
+            style={styles.button}>
+            Run Now</Button>
+           <Button 
+            style={styles.button}
+            onClick={() => saveChanges(selected)}>
+            Save</Button>
+           <Button 
+            style={styles.button}>
+            Cancel</Button>
+            <br/>
+           <Input
+            name="lastRun"
+            label="Last Run"
+            value={selected.lastRun}
+            contentEditable={false}
+            />
+            <br/>
+            <DropDownList
+            name="runStatus"
+            label="Run Status"
+            value={selected.runStatus}
+            data={['Success', 'Failure']}
+            onChange={onChange}
+            />
+            <br/>
+            <p>Next run pull tags from: </p>
+            <DatePicker
+                format={"dd-MMM-yyyy HH:mm:ss"}
+                name="nextRun"
+                value={new Date(selected.nextRun)}
+                onChange={onChange}
+                width={200}
+            />
+           </div>
+
+       </Splitter>
+    )
+}
 
 class DetailsModal extends React.Component<any, {}> {
     render () {
-        const { visible, selected, onRowClick,  } = this.props
+        const { visible, selected, onRowClick, onChange, saveChanges } = this.props
         return (
                 visible && 
                 <React.Fragment>
-                    {/* <DetailsForm 
+                    <DetailsForm 
                         selected={selected} 
                         onChange={onChange} 
-                        handleSubmit={handleSubmit}/> */}
-                        <Example/>
+                        saveChanges={saveChanges}/>
                     <Grid
                         data={selected.tags}
                         onRowClick={onRowClick}>
-                    <GridToolbar/>
+                    <GridToolbar>
+                        <Button 
+                            style={styles.button}>
+                            Import from Excel</Button>
+                        <Button 
+                            style={styles.button}>
+                            New Tag</Button>
+                        <Button 
+                            style={styles.button}>
+                            Remove Tag</Button>
+                        <Button 
+                            style={styles.button}>
+                            Remove All Tags</Button>
+
+                    </GridToolbar>
                         <Column key="prefix" field="prefix" title="Prefix"/>
                         <Column key="historianTag" field="historianTag" title="Historian Tag"/>
                         <Column key="splunkTag" field="splunkTag" title="Splunk Tag" editable={false}/>
@@ -133,8 +174,8 @@ function mapDispatchToProps(dispatch: any) {
         onRowClick: (e: any) => {
             dispatch(ActionGroup.onRowClickDM(e.dataItem))
         },
-        handleSubmit: () => {
-            dispatch(ActionGroup.handleSubmit())
+        saveChanges: (selected: any) => {
+            dispatch(ActionGroup.collectionUpdate(selected))
         },
         onChange: (e: any) => {
             dispatch(ActionGroup.changeFormData({field: e.target.name, value: e.target.value}))

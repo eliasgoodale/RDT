@@ -11,6 +11,17 @@ import { combineEpics } from 'redux-observable'
     payload: data
 })
 
+const loadBackup = (backupData: any) => {
+    return( 
+        backupData.length > 0 ? 
+        {
+            type: 'detailsModal/LOAD_BACKUP',
+            payload: backupData[0]
+        } : 
+        { type: 'detailsModal/LOAD_BACKUP_FAILURE' }
+    )
+};
+
 const rowDoubleClick = (action$: any) => action$.pipe(
     filter(({ type }: any) => type === 'indicesGrid/ROW_CLICK'),
     map(({ payload }: any ) => changeSelected(payload))
@@ -21,4 +32,11 @@ const processDataToIG = (action$: any) => action$.pipe(
     map(({ payload }: any) => importDataIG(payload.data)),
 )
 
-export default combineEpics(rowDoubleClick, processDataToIG)
+const loadBackupIndex = (action$: any, state$: any) => action$.pipe(
+    filter(({ type }: any) => type === 'detailsModal/CHANGE_SELECTED'),
+    map(({ payload }: any) =>  
+        loadBackup(state$.value.collection.data.filter(
+            (index: any) => index.id === payload.id)))
+)
+
+export default combineEpics(rowDoubleClick, processDataToIG, loadBackupIndex)

@@ -72,9 +72,7 @@ export const hideDM = () => ({
     type: "detailsModal/HIDE"
 })
 
-export const handleSubmit = () => ({
-    type: "detailsModal/SUBMIT"
-})
+
 
 export const changeFormData = (change: any) => ({
     type: "detailsModal/CHANGE_FORM_DATA",
