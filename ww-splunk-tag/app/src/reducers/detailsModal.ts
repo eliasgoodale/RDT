@@ -1,7 +1,7 @@
 import { compare } from 'fast-json-patch'
 
 const initialState = {
-    visible: true,
+    visible: false,
     selected: {
         tags: [],
     },

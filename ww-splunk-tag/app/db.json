@@ -4,11 +4,11 @@
       "id": "8fs9cde",
       "index": "Galaxy_SWD",
       "location": "Galaxy",
-      "status": "Production",
+      "status": "Test",
       "lastRun": "August 19, 1975 9:00 am",
-      "runStatus": "Success",
+      "runStatus": "Failure",
       "entity": "SWD",
-      "nextRun": "August 19, 1975 9:00 am",
+      "nextRun": "2017-05-04T11:30",
       "tags": [
         {
           "id": "t-01",
@@ -28,7 +28,8 @@
           "historianTag": "NDSNS_FIT_221a.Total_Continuous",
           "splunkTag": "FIT_221a.Total_Continuous"
         }
-      ]
+      ],
+      "": "Test"
     },
     {
       "id": "3389ffd",
@@ -38,7 +39,7 @@
       "lastRun": "August 19, 1975 9:00 am",
       "runStatus": "Success",
       "entity": "SWD",
-      "nextRun": "August 19, 1975 9:00 am",
+      "nextRun": "2017-05-24T10:30",
       "tags": [
         {
           "id": "temp",
@@ -73,7 +74,7 @@
       "lastRun": "August 19, 1975 9:00 am",
       "runStatus": "Success",
       "entity": "Producer",
-      "nextRun": "August 19, 1975 9:00 am",
+      "nextRun": "2017-05-24T10:30",
       "tags": [
         {
           "id": "t-07",

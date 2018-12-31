@@ -7,12 +7,19 @@ import { Splitter } from '@progress/kendo-react-layout'
 
 import { Grid, GridColumn as Column, GridToolbar } from '@progress/kendo-react-grid'
 import { Input } from '@progress/kendo-react-inputs'
-import { DropDownList } from '@progress/kendo-react-dropdowns'
+import { Dialog } from '@progress/kendo-react-dialogs'
+
 import { Button } from '@progress/kendo-react-buttons'
 import { connect } from 'react-redux';
-import { DatePicker } from '@progress/kendo-react-dateinputs';
 
-import { Dialog } from '@progress/kendo-react-dialogs'
+
+
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+
+
 
 const panesDefault = [
     { size: '50%', min: '20px', resizable: false},
@@ -23,17 +30,19 @@ const styles = {
     button: {
         margin: '5px'
     },
-    dropDown: {
-        margin: '0px'
+    select: {
+        margin: '5px',
+        width: '175px'
     },
-    input: {
-        margin: '5px'
-    },
-    radio: {
-        margin: '5px'
-    },
+
     dateInput: {
         margin: '5px'
+    },
+    pane: {
+        padding: 10
+    },
+    input: {
+        margin: '5px',
     }
 }
 
@@ -44,10 +53,11 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
     return (
 
        <Splitter
+
            panes={panes}
            onLayoutChange={(updatedState:any) => setpanes(updatedState)}
        >
-           <div className="pane-content">
+           <div className="pane-content" style={styles.pane} >
            <Input style={styles.input}
                 name="index"
                 label="Index"
@@ -62,16 +72,25 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
                 onChange={onChange}
             />
             <br/>
-            <DropDownList style={styles.dropDown}
-                name="status"
-                label="Status"
-                value={selected.status}
-                data={['Production', 'Test', 'Inactive']}
-                onChange={onChange}
-            />
+
+        <FormControl>
+          <InputLabel htmlFor="age-native-simple">Status</InputLabel>
+            <Select style={styles.select}
+              native
+              name="status"
+              value={selected.status}
+              onChange={onChange}
+            >
+            <option value=""/>
+            <option value={"Production"}>Production</option>
+            <option value={"Test"}>Test</option>
+            <option value={"Inactive"}>Inactive</option>
+          </Select>
+        </FormControl>
+            <br/>
             <div className="k-form-field">
 
-            <input style={styles.radio}
+            <input 
                 type="radio"
                 name="entity"
                 value="Producer"
@@ -82,7 +101,7 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
             />
             <label className="k-radio-label" htmlFor="producer-entity">Producer</label>
             <br/>
-            <input style={styles.radio}
+            <input 
                 type="radio"
                 name="entity"
                 value="SWD"
@@ -95,7 +114,7 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
             </div>
            </div>
 
-           <div className="pane-content">
+           <div className="pane-content" style={styles.pane}>
 
            <Button 
             style={styles.button}>
@@ -115,25 +134,40 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
             contentEditable={false}
             />
             <br/>
-            <DropDownList style={styles.dropDown}
-            name="runStatus"
-            label="Run Status"
-            value={selected.runStatus}
-            data={['Success', 'Failure']}
-            onChange={onChange}
-            />
-            <br/>
-            <p>Next run pull tags from: </p>
-            <DatePicker
-                format={"dd-MMM-yyyy HH:mm:ss"}
+            <FormControl>
+          <InputLabel htmlFor="age-native-simple">Run Status</InputLabel>
+            <Select
+              style={styles.select}
+              native
+              name="runStatus"
+              value={selected.runStatus}
+              onChange={onChange}
+            >
+            <option value=""/>
+            <option value={"Success"}>Success</option>
+            <option value={"Failure"}>Failure</option>
+          </Select>
+        </FormControl>
+        <br/>
+        <FormControl>
+
+            <TextField
+                id="datetime-local"
+                type="datetime-local"
+                label="Next run pull tags from"
                 name="nextRun"
-                value={new Date(selected.nextRun)}
                 onChange={onChange}
-                width={200}
-            />
+                value={selected.nextRun}
+
+                InputLabelProps={{
+            shrink: true,
+        }}
+      />
+        </FormControl>
            </div>
 
        </Splitter>
+
     )
 }
 
@@ -150,11 +184,13 @@ class DetailsModal extends React.Component<any, {}> {
                 <Dialog
                     title="Details View"
                     onClose={hideDetails}>
-                <React.Fragment>
+                <div>
                     <DetailsForm 
                         selected={selected} 
                         onChange={onFormChange} 
                         saveChanges={saveChanges}/>
+                </div>
+                <br/>
                     <Grid
                         data={tags}
                         onRowClick={onRowClick}
@@ -184,7 +220,7 @@ class DetailsModal extends React.Component<any, {}> {
                         <Column key="splunkTag" field="splunkTag" title="Splunk Tag" editable={false}/>
                     
                     </Grid>
-            </React.Fragment>
+            
             </Dialog>
         )
     }

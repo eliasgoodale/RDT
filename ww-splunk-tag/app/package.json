@@ -21,6 +21,7 @@
     "@types/redux-promise-middleware": "0.0.11",
     "axios": "^0.18.0",
     "fast-json-patch": "^2.0.7",
+    "material-ui-next-pickers": "0.0.16",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
     "react-redux": "^5.1.1",
