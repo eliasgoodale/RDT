@@ -22,14 +22,27 @@ const loadBackup = (backupData: any) => {
     )
 };
 
-const rowDoubleClick = (action$: any) => action$.pipe(
+export const showDetails = () => ({
+    type: "detailsModal/SHOW"
+})
+
+
+const rowDoubleClickIG = (action$: any) => action$.pipe(
     filter(({ type }: any) => type === 'indicesGrid/ROW_CLICK'),
     map(({ payload }: any ) => changeSelected(payload))
 )
 
-const processDataToIG = (action$: any) => action$.pipe(
-    filter(({ type }: any) => type === 'collection/GET_ALL_FULFILLED'),
-    map(({ payload }: any) => importDataIG(payload.data)),
+const rowClickIG = (action$: any) => action$.pipe(
+    filter(({ type }: any) => type === 'indicesGrid/ROW_CLICK'),
+    map(({ payload }: any ) => showDetails())
+)
+
+const processDataToIG = (action$: any, state$: any) => action$.pipe(
+    filter(({ type }: any) => 
+        type === 'collection/GET_ALL_FULFILLED' ||
+        type === 'collection/UPDATE_FULFILLED'
+    ),
+    map(({ payload }: any) => importDataIG(state$.value.collection.data)),
 )
 
 const loadBackupIndex = (action$: any, state$: any) => action$.pipe(
@@ -39,4 +52,4 @@ const loadBackupIndex = (action$: any, state$: any) => action$.pipe(
             (index: any) => index.id === payload.id)))
 )
 
-export default combineEpics(rowDoubleClick, processDataToIG, loadBackupIndex)
+export default combineEpics(rowDoubleClickIG, rowClickIG, processDataToIG, loadBackupIndex)

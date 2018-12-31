@@ -64,19 +64,43 @@ export const collectionGetAll = () => ({
     payload: dataItem
  })
 
-export const showDM = () => ({
+export const showDetails = () => ({
     type: "detailsModal/SHOW"
 })
 
-export const hideDM = () => ({
+export const hideDetails = () => ({
     type: "detailsModal/HIDE"
 })
-
-
 
 export const changeFormData = (change: any) => ({
     type: "detailsModal/CHANGE_FORM_DATA",
     payload: change
 })
 
+/**
+ * 
+ * Tags Grid
+ */
 
+export const changeTagInEdit = (id: string) => ({
+    type: "tags/CHANGE_TAG_IN_EDIT",
+    payload: id
+})
+
+export const changeTagData = (id: string, field: any, value: any) => ({
+    type: "tags/CHANGE_TAG_DATA",
+    payload: {id, field, value}
+})
+
+export const createTag = () => ({
+    type: "tags/CREATE_TAG"
+})
+
+export const deleteTag = (id: string) => ({
+    type: "tags/DELETE_TAG",
+    payload: id
+})
+
+export const deleteAllTags = () => ({
+    type: "tags/DELETE_ALL_TAGS"
+})

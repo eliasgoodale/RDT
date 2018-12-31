@@ -4,23 +4,26 @@
       "id": "8fs9cde",
       "index": "Galaxy_SWD",
       "location": "Galaxy",
-      "status": "Test",
+      "status": "Production",
       "lastRun": "August 19, 1975 9:00 am",
       "runStatus": "Success",
-      "entity": "Producer",
+      "entity": "SWD",
       "nextRun": "August 19, 1975 9:00 am",
       "tags": [
         {
+          "id": "t-01",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_DPIT_301.Value",
           "splunkTag": "DPIT_301.Value"
         },
         {
+          "id": "t-02",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_FIT_20101.Temperature",
           "splunkTag": "FIT_20101.Temperature"
         },
         {
+          "id": "t-03",
           "prefix": "NDSNS_",
           "historianTag": "NDSNS_FIT_221a.Total_Continuous",
           "splunkTag": "FIT_221a.Total_Continuous"
@@ -34,20 +37,28 @@
       "status": "Production",
       "lastRun": "August 19, 1975 9:00 am",
       "runStatus": "Success",
-      "entity": "Producer",
+      "entity": "SWD",
       "nextRun": "August 19, 1975 9:00 am",
       "tags": [
         {
+          "id": "temp",
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_TANK_221.Backflow"
+        },
+        {
+          "id": "t-04",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_FIT_20101.Total_Today",
           "splunkTag": "FIT_2101.Total_Today"
         },
         {
+          "id": "t-05",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_FIT_33263.Temperature",
           "splunkTag": "FIT_33263.Temperature"
         },
         {
+          "id": "t-06",
           "prefix": "NDSNS_",
           "historianTag": "NDSNS_FIT_221a.Total_Continuous",
           "splunkTag": "FIT_221a.Total_Continuous"
@@ -65,16 +76,19 @@
       "nextRun": "August 19, 1975 9:00 am",
       "tags": [
         {
+          "id": "t-07",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_DPIT_902.Value",
           "splunkTag": "DPIT_902.Value"
         },
         {
+          "id": "t-08",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_FIT_33172.Temperature",
           "splunkTag": "FIT_33172.Temperature"
         },
         {
+          "id": "t-09",
           "prefix": "NDSNS_",
           "historianTag": "NDSNS_FIT_55834.Total_Continuous",
           "splunkTag": "FIT_55834.Total_Continuous"
