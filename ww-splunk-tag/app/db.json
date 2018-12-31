@@ -42,11 +42,6 @@
       "nextRun": "2017-05-24T10:30",
       "tags": [
         {
-          "id": "temp",
-          "prefix": "NDGAL_",
-          "historianTag": "NDGAL_TANK_221.Backflow"
-        },
-        {
           "id": "t-04",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_FIT_20101.Total_Today",

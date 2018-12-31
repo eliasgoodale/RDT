@@ -10,6 +10,7 @@ import { Input } from '@progress/kendo-react-inputs'
 import { Dialog } from '@progress/kendo-react-dialogs'
 
 import { Button } from '@progress/kendo-react-buttons'
+
 import { connect } from 'react-redux';
 
 
@@ -18,7 +19,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-
+import Typeography from '@material-ui/core/Typography'
 
 
 const panesDefault = [
@@ -39,7 +40,8 @@ const styles = {
         margin: '5px'
     },
     pane: {
-        padding: 10
+        padding: 10,
+        alignContent: 'center'
     },
     input: {
         margin: '5px',
@@ -191,6 +193,7 @@ class DetailsModal extends React.Component<any, {}> {
                         saveChanges={saveChanges}/>
                 </div>
                 <br/>
+
                     <Grid
                         data={tags}
                         onRowClick={onRowClick}
@@ -198,6 +201,7 @@ class DetailsModal extends React.Component<any, {}> {
                         onItemChange={onTagChange}>
                         
                     <GridToolbar>
+                    <div>
                         <Button 
                             style={styles.button}>
                             Import from Excel</Button>
@@ -213,7 +217,8 @@ class DetailsModal extends React.Component<any, {}> {
                             style={styles.button}
                             onClick={deleteAllTags}>
                             Remove All Tags</Button>
-
+                        <Typeography style={{float: 'right' }} ># of tags: {tags.length}</Typeography>
+                    </div>
                     </GridToolbar>
                         <Column key="prefix" field="prefix" title="Prefix"/>
                         <Column key="historianTag" field="historianTag" title="Historian Tag"/>
