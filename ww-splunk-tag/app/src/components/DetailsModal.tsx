@@ -13,7 +13,7 @@ import { Button } from '@progress/kendo-react-buttons'
 
 import { connect } from 'react-redux';
 
-
+import validate from '../middleware'
 
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -123,18 +123,27 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
             Run Now</Button>
            <Button 
             style={styles.button}
-            onClick={() => saveChanges(selected)}>
+            onClick={() => saveChanges(selected)}
+            disabled={validate(selected).error === null}>
             Save</Button>
            <Button 
             style={styles.button}>
             Cancel</Button>
             <br/>
-           <Input style={styles.input}
-            name="lastRun"
-            label="Last Run"
-            value={selected.lastRun}
-            contentEditable={false}
+            <FormControl>
+
+            <TextField
+                id="lastRun"
+                type="datetime-local"
+                label="Last Run"
+                name="lastRun"
+                onChange={onChange}
+                value={selected.lastRun}
+                InputLabelProps={{
+                    shrink: true,
+                }}
             />
+            </FormControl>
             <br/>
             <FormControl>
           <InputLabel htmlFor="age-native-simple">Run Status</InputLabel>
@@ -145,14 +154,13 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
               value={selected.runStatus}
               onChange={onChange}
             >
-            <option value=""/>
-            <option value={"Success"}>Success</option>
-            <option value={"Failure"}>Failure</option>
+                <option value=""/>
+                <option value={"Success"}>Success</option>
+                <option value={"Failure"}>Failure</option>
           </Select>
         </FormControl>
         <br/>
         <FormControl>
-
             <TextField
                 id="datetime-local"
                 type="datetime-local"
@@ -160,10 +168,9 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
                 name="nextRun"
                 onChange={onChange}
                 value={selected.nextRun}
-
                 InputLabelProps={{
-            shrink: true,
-        }}
+                    shrink: true,
+                }}
       />
         </FormControl>
            </div>

@@ -1,4 +1,4 @@
-
+import { newIndexTemplate } from '../types'
 
 const initialState: any = {
     selected: {},
@@ -16,6 +16,12 @@ export default (state = initialState, action: any) => {
             return {
                 ...state,
                 data: action.payload
+            }
+        case 'indicesGrid/ENTER_CREATE':
+            return {
+                ...state,
+                data: [newIndexTemplate, ...state.data],
+                selected: newIndexTemplate
             }
         default:
             return state;

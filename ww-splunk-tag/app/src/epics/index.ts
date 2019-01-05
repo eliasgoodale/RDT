@@ -1,5 +1,6 @@
 import { map, filter } from 'rxjs/operators'
 import { combineEpics } from 'redux-observable'
+import { newIndexTemplate } from '../types';
 
  const changeSelected = (dataItem: any) => ({
     type: 'detailsModal/CHANGE_SELECTED',
@@ -32,8 +33,17 @@ const rowDoubleClickIG = (action$: any) => action$.pipe(
     map(({ payload }: any ) => changeSelected(payload))
 )
 
+const enterCreateMode = (action$: any) => action$.pipe(
+    filter (({ type }: any) => type === 'indicesGrid/ENTER_CREATE'),
+    map(() => loadBackup([newIndexTemplate])),
+    map(() => changeSelected(newIndexTemplate))
+)
+
 const rowClickIG = (action$: any) => action$.pipe(
-    filter(({ type }: any) => type === 'indicesGrid/ROW_CLICK'),
+    filter(({ type }: any) =>
+        type === 'indicesGrid/ROW_CLICK' ||
+        type === 'indicesGrid/ENTER_CREATE'
+    ),
     map(({ payload }: any ) => showDetails())
 )
 
@@ -52,4 +62,4 @@ const loadBackupIndex = (action$: any, state$: any) => action$.pipe(
             (index: any) => index.id === payload.id)))
 )
 
-export default combineEpics(rowDoubleClickIG, rowClickIG, processDataToIG, loadBackupIndex)
+export default combineEpics(enterCreateMode, rowDoubleClickIG, rowClickIG, processDataToIG, loadBackupIndex)

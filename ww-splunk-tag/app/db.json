@@ -5,7 +5,7 @@
       "index": "Galaxy_SWD",
       "location": "Galaxy",
       "status": "Test",
-      "lastRun": "August 19, 1975 9:00 am",
+      "lastRun": "2017-05-04T11:30",
       "runStatus": "Failure",
       "entity": "SWD",
       "nextRun": "2017-05-04T11:30",
@@ -28,15 +28,14 @@
           "historianTag": "NDSNS_FIT_221a.Total_Continuous",
           "splunkTag": "FIT_221a.Total_Continuous"
         }
-      ],
-      "": "Test"
+      ]
     },
     {
       "id": "3389ffd",
       "index": "Quale_SWD",
       "location": "Quale",
       "status": "Production",
-      "lastRun": "August 19, 1975 9:00 am",
+      "lastRun": "2017-05-04T11:30",
       "runStatus": "Success",
       "entity": "SWD",
       "nextRun": "2017-05-24T10:30",
@@ -66,7 +65,7 @@
       "index": "Dahl_SWD",
       "location": "Dahl",
       "status": "Production",
-      "lastRun": "August 19, 1975 9:00 am",
+      "lastRun": "2017-05-04T11:30",
       "runStatus": "Success",
       "entity": "Producer",
       "nextRun": "2017-05-24T10:30",

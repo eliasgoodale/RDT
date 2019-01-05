@@ -54,6 +54,9 @@ export const collectionGetAll = () => ({
     payload: dataItem
  })
 
+ export const enterCreateIG = () => ({
+     type: "indicesGrid/ENTER_CREATE"
+ })
 
  /**
   * Details Modal

@@ -37,7 +37,7 @@ class IndicesGrid extends React.Component<any, {}> {
     }
 
     render() {
-        const {data, onRowClick} = this.props
+        const {data, onRowClick, enterCreateMode} = this.props
 
         return (
             <React.Fragment>
@@ -51,7 +51,11 @@ class IndicesGrid extends React.Component<any, {}> {
                     sortable
                     reorderable >
                     <GridToolbar>
-                        <Button variant="contained" size="small" style={styles.button}>
+                        <Button 
+                            variant="contained" 
+                            size="small" 
+                            onClick={enterCreateMode} 
+                            style={styles.button}>
                             New Index
                         </Button>
                         <Button variant="contained" size="small" style={styles.button}>
@@ -83,6 +87,9 @@ function mapDispatchToProps(dispatch: any) {
     return {
         onRowClick: (e: any) => {
             dispatch(ActionGroup.onRowClickIG(e.dataItem))
+        },
+        enterCreateMode: () => {
+            dispatch(ActionGroup.enterCreateIG())
         }
     }
 }
