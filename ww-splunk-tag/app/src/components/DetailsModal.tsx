@@ -35,10 +35,9 @@ const styles = {
         marginBottom: 15,
     },
     button: {
-        margin: '5px'
+
     },
     select: {
-
         width: '175px'
     },
     dateInput: {
@@ -50,7 +49,6 @@ const styles = {
         alignContent: 'center'
     },
     input: {
-        margin: '5px',
     },
     grid: {
         height: 450
@@ -103,7 +101,6 @@ const DetailsForm = ({
         <div style={styles.container}>
         <FormControl>
           <InputLabel htmlFor="status">Status</InputLabel>
-          <br/>
             <Select style={styles.select}
               native
               name="status"
