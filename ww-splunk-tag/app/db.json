@@ -4,29 +4,21 @@
       "id": "8fs9cde",
       "index": "Galaxy_SWD",
       "location": "Galaxy",
-      "status": "Test",
-      "lastRun": "2017-05-04T11:30",
-      "runStatus": "Failure",
+      "status": "Production",
+      "lastRun": "2017-05-04T11:01",
+      "runStatus": "Success",
       "entity": "SWD",
       "nextRun": "2017-05-04T11:30",
       "tags": [
         {
-          "id": "t-01",
-          "prefix": "NDGAL_",
-          "historianTag": "NDGAL_DPIT_301.Value",
-          "splunkTag": "DPIT_301.Value"
+          "prefix": "asfasdfdsaf",
+          "historianTag": "asdfadsfadsfd",
+          "splunkTag": "asdfadsfadsfd"
         },
         {
-          "id": "t-02",
-          "prefix": "NDGAL_",
-          "historianTag": "NDGAL_FIT_20101.Temperature",
-          "splunkTag": "FIT_20101.Temperature"
-        },
-        {
-          "id": "t-03",
-          "prefix": "NDSNS_",
-          "historianTag": "NDSNS_FIT_221a.Total_Continuous",
-          "splunkTag": "FIT_221a.Total_Continuous"
+          "prefix": "asdfsdfs",
+          "historianTag": "fasdfadsfasdf",
+          "splunkTag": "fasdfadsfasdf"
         }
       ]
     },
@@ -41,19 +33,16 @@
       "nextRun": "2017-05-24T10:30",
       "tags": [
         {
-          "id": "t-04",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_FIT_20101.Total_Today",
           "splunkTag": "FIT_2101.Total_Today"
         },
         {
-          "id": "t-05",
           "prefix": "NDGAL_",
           "historianTag": "NDGAL_FIT_33263.Temperature",
           "splunkTag": "FIT_33263.Temperature"
         },
         {
-          "id": "t-06",
           "prefix": "NDSNS_",
           "historianTag": "NDSNS_FIT_221a.Total_Continuous",
           "splunkTag": "FIT_221a.Total_Continuous"
@@ -87,6 +76,153 @@
           "prefix": "NDSNS_",
           "historianTag": "NDSNS_FIT_55834.Total_Continuous",
           "splunkTag": "FIT_55834.Total_Continuous"
+        }
+      ]
+    },
+    {
+      "id": "MJ1unYY",
+      "index": "Dahl_SWD",
+      "location": "Dahl",
+      "status": "Production",
+      "lastRun": "2018-01-02T04:32",
+      "runStatus": "Success",
+      "entity": "SWD",
+      "nextRun": "4343-02-03T13:23",
+      "tags": []
+    },
+    {
+      "id": "CZ05pcj",
+      "index": "Dahl_SWD",
+      "location": "Dahl",
+      "status": "Inactive",
+      "lastRun": "2019-01-03T12:00",
+      "runStatus": "Failure",
+      "entity": "Producer",
+      "nextRun": "2018-02-03T02:03",
+      "tags": []
+    },
+    {
+      "id": "BVO5Huv",
+      "index": "Oxy_Producer",
+      "location": "Oxy_1",
+      "status": "Production",
+      "lastRun": "2019-01-20T00:00",
+      "runStatus": "N/A",
+      "entity": "Producer",
+      "nextRun": "2019-12-03T01:23",
+      "tags": [
+        {
+          "prefix": "asfsdfsdf",
+          "historianTag": "sdfdsafasdfsadf",
+          "splunkTag": "sdfdsafasdfsadf"
+        },
+        {
+          "prefix": "sdfsdfdsfsd",
+          "historianTag": "sfsdfds",
+          "splunkTag": "sfsdfds"
+        },
+        {
+          "prefix": "fdsffsdfs",
+          "historianTag": "dfsdfsdfdsf",
+          "splunkTag": "dfsdfsdfdsf"
+        },
+        {
+          "prefix": "jdlakfjdsl",
+          "historianTag": "alksfjdlfdjsafldk",
+          "splunkTag": "alksfjdlfdjsafldk"
+        }
+      ]
+    },
+    {
+      "id": "Xb9R8cr",
+      "index": "Dahl_SWD",
+      "location": "Dahl_12",
+      "status": "Test",
+      "lastRun": "2019-01-11T13:03",
+      "runStatus": "N/A",
+      "entity": "SWD",
+      "nextRun": "2020-02-03T02:03",
+      "tags": [
+        {
+          "prefix": "fasdfasdfdfsd",
+          "historianTag": "sfasdfaf",
+          "splunkTag": "sfasdfaf"
+        },
+        {
+          "prefix": "fsdafsdfa",
+          "historianTag": "asfsdfaf",
+          "splunkTag": "asfsdfaf"
+        },
+        {
+          "prefix": "asdfasdfas",
+          "historianTag": "dasfadsfasd",
+          "splunkTag": "dasfadsfasd"
+        }
+      ]
+    },
+    {
+      "id": "TGdEFZr",
+      "index": "Galaxy_SWD",
+      "location": "Galaxy",
+      "status": "Production",
+      "lastRun": "2017-05-04T11:01",
+      "runStatus": "Success",
+      "entity": "SWD",
+      "nextRun": "2017-05-04T11:30",
+      "tags": [
+        {
+          "prefix": "fasdfadsfasdf",
+          "historianTag": "sfasdfasdf",
+          "splunkTag": "sfasdfasdf"
+        },
+        {
+          "prefix": "dsafasdfasfds",
+          "historianTag": "fsadfdsfadsf",
+          "splunkTag": "fsadfdsfadsf"
+        },
+        {
+          "prefix": "dsfsadf",
+          "historianTag": "asdfasdfsdafd",
+          "splunkTag": "asdfasdfsdafd"
+        }
+      ]
+    },
+    {
+      "id": "3wqDtNM",
+      "index": "asdfasdf",
+      "location": "sfadsfasdfas",
+      "status": "Inactive",
+      "lastRun": "2019-01-02T06:05",
+      "runStatus": "N/A",
+      "entity": "SWD",
+      "nextRun": "2019-01-09T03:02",
+      "tags": [
+        {
+          "prefix": "asdfadsfasd",
+          "historianTag": "fasdfdsafasd",
+          "splunkTag": "fasdfdsafasd"
+        }
+      ]
+    },
+    {
+      "id": "A-EAsIR",
+      "index": "sadfsdf",
+      "location": "asdfasdfasdfsaf",
+      "status": "Inactive",
+      "lastRun": "2019-01-07T04:03",
+      "runStatus": "N/A",
+      "entity": "Producer",
+      "nextRun": "2019-01-17T02:03",
+      "tags": [
+        {
+          "prefix": "sdfasdfadsf",
+          "historianTag": "dsafsadfsad",
+          "splunkTag": "dsafsadfsad"
+        },
+        {
+          "prefix": "asdfdsfas",
+          "historianTag": "fadsfasd",
+          "splunkTag": "fadsfasd"
         }
       ]
     }

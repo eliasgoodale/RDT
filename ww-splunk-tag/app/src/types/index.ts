@@ -9,3 +9,10 @@ export const newIndexTemplate = {
     nextRun: "",
     tags: []
 }
+
+export const newTagTemplate = (id: string) => ({
+    id: id,
+    prefix: "",
+    historianTag: "",
+    splunkTag: ""
+})

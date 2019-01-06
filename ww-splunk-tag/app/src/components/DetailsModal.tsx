@@ -6,77 +6,104 @@ import * as ActionGroup from '../actions'
 import { Splitter } from '@progress/kendo-react-layout'
 
 import { Grid, GridColumn as Column, GridToolbar } from '@progress/kendo-react-grid'
-import { Input } from '@progress/kendo-react-inputs'
+
 import { Dialog } from '@progress/kendo-react-dialogs'
 
 import { Button } from '@progress/kendo-react-buttons'
 
 import { connect } from 'react-redux';
 
-import validate from '../middleware'
+import {validateIndex, validateTag} from '../middleware'
 
+import Input  from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Typeography from '@material-ui/core/Typography'
+import Paper from '@material-ui/core/Paper'
 
 
 const panesDefault = [
-    { size: '50%', min: '20px', resizable: false},
+    { size: '50%', min: '20px'},
     { }
 ]
 
 const styles = {
+    container: {
+        marginTop: 15,
+        marginBottom: 15,
+    },
     button: {
         margin: '5px'
     },
     select: {
-        margin: '5px',
+
         width: '175px'
     },
-
     dateInput: {
         margin: '5px'
     },
     pane: {
+        height: 300,
         padding: 10,
         alignContent: 'center'
     },
     input: {
         margin: '5px',
-    }
+    },
+    grid: {
+        height: 450
+    },
 }
 
 
-const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
+const DetailsForm = ({
+    saveChanges,
+    onChange,
+    selected,
+    patch,
+    createMode,
+    createIndex,
+    onCancel}: any): any => {
 
-    const [panes, setpanes] = useState(panesDefault)
+    const [panes, setPanes] = useState(panesDefault)
     return (
-
-       <Splitter
-
-           panes={panes}
-           onLayoutChange={(updatedState:any) => setpanes(updatedState)}
-       >
-           <div className="pane-content" style={styles.pane} >
-           <Input style={styles.input}
-                name="index"
-                label="Index"
-                value={selected.index}
-                onChange={onChange}
-            />
+        <Paper elevation={5}>
+        <Splitter
+            panes={panes}
+            onLayoutChange={(updatedState:any) => setPanes(updatedState)}
+        >
+        <div className="pane-content" style={styles.pane} >
+           
+            <div style={styles.container}>
+            <FormControl>
+            <InputLabel htmlFor="status">Index</InputLabel>
             <br/>
-            <Input style={styles.input}
+                <Input style={styles.input}
+                name="index"
+                value={selected.index}
+                onChange={onChange} 
+                />
+            </FormControl>
+            </div>
+        
+            <div style={styles.container}>
+            <FormControl>
+            <InputLabel htmlFor="status">Location</InputLabel>
+            <br/>
+                <Input style={styles.input}
                 name="location"
-                label="Location"
                 value={selected.location}
                 onChange={onChange}
-            />
-            <br/>
+                />
+            </FormControl>
+            </div>
 
+        <div style={styles.container}>
         <FormControl>
-          <InputLabel htmlFor="age-native-simple">Status</InputLabel>
+          <InputLabel htmlFor="status">Status</InputLabel>
+          <br/>
             <Select style={styles.select}
               native
               name="status"
@@ -89,9 +116,9 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
             <option value={"Inactive"}>Inactive</option>
           </Select>
         </FormControl>
-            <br/>
-            <div className="k-form-field">
+        </div>
 
+            <div className="k-form-field">
             <input 
                 type="radio"
                 name="entity"
@@ -117,21 +144,32 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
            </div>
 
            <div className="pane-content" style={styles.pane}>
-
+           <div style={styles.container}>
            <Button 
             style={styles.button}>
             Run Now</Button>
+
+            { createMode ?  
+            <Button
+            style={styles.button}
+            onClick={() => createIndex(selected)}
+            disabled={validateIndex(selected).error !== null}>
+               Create </Button> 
+               :
            <Button 
             style={styles.button}
             onClick={() => saveChanges(selected)}
-            disabled={validate(selected).error === null}>
-            Save</Button>
-           <Button 
-            style={styles.button}>
-            Cancel</Button>
-            <br/>
-            <FormControl>
+            disabled={validateIndex(selected).error !== null || patch.length === 0}>
+                Save </Button> }
 
+           <Button 
+            style={styles.button}
+            onClick={onCancel}>
+            Cancel</Button>
+            </div>
+
+            <div style={styles.container}>
+            <FormControl>
             <TextField
                 id="lastRun"
                 type="datetime-local"
@@ -144,38 +182,34 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
                 }}
             />
             </FormControl>
-            <br/>
-            <FormControl>
-          <InputLabel htmlFor="age-native-simple">Run Status</InputLabel>
-            <Select
-              style={styles.select}
-              native
-              name="runStatus"
-              value={selected.runStatus}
-              onChange={onChange}
-            >
-                <option value=""/>
-                <option value={"Success"}>Success</option>
-                <option value={"Failure"}>Failure</option>
-          </Select>
-        </FormControl>
-        <br/>
-        <FormControl>
-            <TextField
-                id="datetime-local"
-                type="datetime-local"
-                label="Next run pull tags from"
-                name="nextRun"
-                onChange={onChange}
-                value={selected.nextRun}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-      />
-        </FormControl>
-           </div>
+            </div>
 
+            <div style={styles.container}>
+            <FormControl>
+                <InputLabel htmlFor="age-native-simple">Run Status</InputLabel>
+                <Input value={selected.runStatus} readOnly={true}/>
+            </FormControl>
+            </div>
+            
+            <div style={styles.container}>
+            <FormControl>
+                <TextField
+                    id="datetime-local"
+                    type="datetime-local"
+                    label="Next run pull tags from"
+                    name="nextRun"
+                    onChange={onChange}
+                    value={selected.nextRun}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                />
+            </FormControl>
+            </div>
+
+        </div>
        </Splitter>
+       </Paper>
 
     )
 }
@@ -184,27 +218,68 @@ const DetailsForm = ({saveChanges, onChange, selected}: any): any => {
 
 class DetailsModal extends React.Component<any, {}> {
     render () {
-        const { visible, selected, onRowClick, onFormChange, onTagChange, saveChanges, tagInEdit, createTag, deleteTag, deleteAllTags, hideDetails } = this.props
+        const { 
+            visible,
+            selected,
+            onRowClick,
+            onFormChange,
+            onTagChange,
+            saveChanges,
+            tagInEdit,
+            createTag,
+            deleteTag,
+            deleteAllTags,
+            cancelChanges,
+            patch,
+            createMode,
+            createIndex } = this.props
 
-        const tags = selected.hasOwnProperty('tags') ? selected.tags.map( (t: any) => {return {...t, tagInEdit: t.id === tagInEdit}}) :
-            []
+        const tags = selected.tags.map( (t: any) => {
+            return {
+                ...t, 
+                tagInEdit: t.id === tagInEdit,
+
+            }
+        })
+        let tag = tags.find((t: any) => t.id === tagInEdit)
+        let validation = validateTag(tag)
         return (
                 visible && 
                 <Dialog
+                    width={750}
+                    height={900}
                     title="Details View"
-                    onClose={hideDetails}>
+                    onClose={cancelChanges}>
                 <div>
-                    <DetailsForm 
+                    <DetailsForm
+                        onCancel={cancelChanges}
+                        createIndex={createIndex}
+                        patch={patch}
+                        createMode={createMode}
                         selected={selected} 
                         onChange={onFormChange} 
                         saveChanges={saveChanges}/>
                 </div>
                 <br/>
-
+                    <Paper elevation={10}>
                     <Grid
+                        style={styles.grid}
                         data={tags}
-                        onRowClick={onRowClick}
+                        onRowClick={(e: any) => {
+                            if(tagInEdit) {
+                                if (validation.error === null) {
+                                    onRowClick(e);
+                                } else {
+                                    null
+                                }
+                            } else {
+                                onRowClick(e);
+                            }
+                        }}
+                        
+                            
                         editField="tagInEdit"
+                
                         onItemChange={onTagChange}>
                         
                     <GridToolbar>
@@ -214,7 +289,8 @@ class DetailsModal extends React.Component<any, {}> {
                             Import from Excel</Button>
                         <Button 
                             style={styles.button}
-                            onClick={createTag}>
+                            onClick={createTag}
+                            disabled={validation.error !== null}>
                             New Tag</Button>
                         <Button 
                             style={styles.button}
@@ -232,7 +308,7 @@ class DetailsModal extends React.Component<any, {}> {
                         <Column key="splunkTag" field="splunkTag" title="Splunk Tag" editable={false}/>
                     
                     </Grid>
-            
+                    </Paper>
             </Dialog>
         )
     }
@@ -243,15 +319,34 @@ function mapStateToProps(state: any) {
     return {
         selected: state.detailsModal.selected,
         visible: state.detailsModal.visible,
-        tagInEdit: state.detailsModal.tagInEdit
+        tagInEdit: state.detailsModal.tagInEdit,
+        patch: state.detailsModal.patch,
+        createMode: state.indicesGrid.createMode
     }
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
-        hideDetails: () => dispatch(ActionGroup.hideDetails()),
+        cancelChanges: () => dispatch(ActionGroup.cancelChanges()),
         saveChanges: (selected: any) => {
-            dispatch(ActionGroup.collectionUpdate(selected))
+            const update = {
+                ...selected, 
+                tags: selected.tags.map((t: any) => {
+                    delete t.id
+                    return t
+                })
+            }
+            dispatch(ActionGroup.collectionUpdate(update))
+        },
+        createIndex: (selected: any) => {
+            const newIndex = {
+                ...selected, 
+                tags: selected.tags.map((t: any) => {
+                    delete t.id
+                    return t
+                })
+            }
+            dispatch(ActionGroup.collectionCreate(newIndex))
         },
         onRowClick: (e: any) => {
             dispatch(ActionGroup.changeTagInEdit(e.dataItem.id))

@@ -1,11 +1,16 @@
 import { compare } from 'fast-json-patch'
+import { newTagTemplate } from '../types'
 
 const initialState = {
     visible: false,
     selected: {
+        id: "",
         tags: [],
     },
-    backup: {},
+    backup: {
+        id: "",
+        tags: []
+    },
     patch: [],
     tagInEdit: null,
 }
@@ -26,20 +31,22 @@ export default (state=initialState, action: any) => {
             return {
                 ...state,
                 selected: action.payload,
+                backup: action.payload,
                 tagInEdit: null
             }
-        case 'detailsModal/LOAD_BACKUP':
-            return {
-                ...state,
-                backup: action.payload
-            }
+        case 'detailsModal/CANCEL_CHANGES':
+            return initialState
+        case 'collection/UPDATE_FULFILLED':
+            return initialState
+        case 'collection/CREATE_FULFILLED':
+            return initialState
         case 'detailsModal/CHANGE_FORM_DATA':
             let { field, value } = action.payload
             const newSelected = { ...state.selected, [field]: value}
             return {
                 ...state,
                 selected: newSelected,
-                patch: compare(state.selected, newSelected)
+                patch: compare(state.backup, newSelected)
             }
         case 'tags/CHANGE_TAG_IN_EDIT':
             return {
@@ -51,22 +58,34 @@ export default (state=initialState, action: any) => {
             const newSelectedTags = {
                 ...state.selected, 
                 tags: state.selected.tags.map((t: any) => {
-                    return t.id === action.payload.id ? 
-                    { ...t, [action.payload.field]: action.payload.value } : t
+                    if (t.id[t.id.length - 1] === '0') {
+                        let tag = {
+                            ...t,
+                            [action.payload.field]: action.payload.value
+                        }
+                        return {
+                            ...tag,
+                            splunkTag: tag.historianTag.replace(tag.prefix, "")
+                        }
+                    } else {
+                        return t.id === action.payload.id ? 
+                        { ...t, [action.payload.field]: action.payload.value } : t 
+                    }
                 })
             }
             return {
                 ...state,
                 selected: newSelectedTags,
-                patch: compare(state.selected, newSelectedTags)
+                patch: compare(state.backup, newSelectedTags)
             }
         case 'tags/CREATE_TAG':
+            const createID = `${state.selected.id}-0`
             return {
                 ...state,
-                tagInEdit: "temp",
+                tagInEdit: createID,
                 selected: {
                     ...state.selected,
-                    tags: [{id: "temp"}, ...state.selected.tags]
+                    tags: [newTagTemplate(createID), ...state.selected.tags]
                 }
             }
         case 'tags/DELETE_TAG':
@@ -85,6 +104,14 @@ export default (state=initialState, action: any) => {
                 selected: {
                     ...state.selected,
                     tags: []
+                }
+            }
+        case 'tags/RE_INDEX':
+            return {
+                ...state,
+                selected: {
+                    ...state.selected,
+                    tags: action.payload
                 }
             }
         default:

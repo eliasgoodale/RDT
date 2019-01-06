@@ -1,6 +1,6 @@
 import * as Joi from 'joi'
 
-const schema = Joi.object().keys({
+const indexSchema = Joi.object().keys({
     id: Joi.string(),
     index: Joi.string().min(2).max(30),
     location: Joi.string().min(2).max(30),
@@ -12,6 +12,28 @@ const schema = Joi.object().keys({
     tags: Joi.array() 
 })
 
-const validate = (index: any) => Joi.validate(index, schema) 
+const tagSchema = Joi.object().keys({
+    id: Joi.string(),
+    prefix: Joi.string().min(1),
+    historianTag: Joi.string().min(1),
+    splunkTag: Joi.string(),
+    tagInEdit: Joi.boolean(),
+})
 
-export default validate
+const validateIndex = (index: any) => {
+    const result = Joi.validate(index, indexSchema);
+    console.log(result);
+    return result;
+} 
+
+const validateTag = (tag: any) => {
+    const result = Joi.validate(tag, tagSchema);
+    console.log(result);
+    return result;
+}
+
+export { 
+    validateIndex,
+    validateTag,
+}
+    

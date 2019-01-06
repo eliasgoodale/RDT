@@ -10,7 +10,7 @@ export default (state: any = initialState, action: any) => {
         case 'collection/CREATE_FULFILLED':
             return {
                 ...state,
-                data: [ action.payload, ...state.data ]
+                data: [ action.payload.data, ...state.data ]
             }
         case 'collection/UPDATE_FULFILLED':
             return {

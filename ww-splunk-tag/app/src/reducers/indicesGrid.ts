@@ -2,7 +2,8 @@ import { newIndexTemplate } from '../types'
 
 const initialState: any = {
     selected: {},
-    data: []
+    data: [],
+    createMode: false
 }
 
 export default (state = initialState, action: any) => {
@@ -21,7 +22,13 @@ export default (state = initialState, action: any) => {
             return {
                 ...state,
                 data: [newIndexTemplate, ...state.data],
-                selected: newIndexTemplate
+                selected: newIndexTemplate,
+                createMode: true,
+            }
+        case 'collection/CREATE_FULFILLED':
+            return {
+                ...state,
+                createMode: false
             }
         default:
             return state;

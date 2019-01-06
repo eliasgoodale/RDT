@@ -75,6 +75,10 @@ export const hideDetails = () => ({
     type: "detailsModal/HIDE"
 })
 
+export const cancelChanges = () => ({
+    type: 'detailsModal/CANCEL_CHANGES'
+})
+
 export const changeFormData = (change: any) => ({
     type: "detailsModal/CHANGE_FORM_DATA",
     payload: change
