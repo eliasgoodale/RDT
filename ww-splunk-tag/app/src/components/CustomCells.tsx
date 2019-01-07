@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField'
 const styles = {
     textField: {
         width: "100%",
-        height: "100%"
+        height: "100%",
     },
 }
 class DateCell extends React.Component<any, {}> {
@@ -17,7 +17,7 @@ class DateCell extends React.Component<any, {}> {
             type="datetime-local"
             name="lastRun"
             value={lastRun}
-            variant="filled"
+            variant="outlined"
             InputProps={{
                 readOnly: true
             }}

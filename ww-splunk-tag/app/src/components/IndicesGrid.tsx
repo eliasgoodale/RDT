@@ -11,7 +11,7 @@ import {
   } from '@progress/kendo-react-grid'
 
 import { Paper, Button } from '@material-ui/core';
-import { DateCell } from './CustomCells';
+
 
 const styles = {
     paper: {
@@ -36,16 +36,18 @@ class IndicesGrid extends React.Component<any, {}> {
 
     render() {
         const {data, onRowClick, enterCreateMode, softDelete, selected, sort, changeSort} = this.props
-        console.log(sort)
-        return (
+        
+        const tableData = data.map((index: any) => ({...index, selected: index.id === selected.id}))
+        return ( 
             <React.Fragment>
             <Paper style={styles.paper}>
                 < Grid 
                     style={styles.grid}
-                    data={data}
+                    data={tableData}
                     onRowClick={onRowClick}
                     resizable
                     sortable
+                    selectedField="selected"
                     onSortChange={changeSort}
                     sort={sort}
                     reorderable >
@@ -69,8 +71,7 @@ class IndicesGrid extends React.Component<any, {}> {
                     <Column sortable key='index' field='index' title="Index" />
                     <Column sortable key='location' field='location' title="Location" />
                     <Column sortable key='status' field='status' title="Status" />
-                    <Column sortable key='lastRun' field='lastRun' title="Last Run" 
-                        cell = { (props) => <DateCell {...props}/> }/>
+                    <Column sortable key='lastRun' field='lastRun' title="Last Run"/>
                     <Column sortable key='runStatus' field='runStatus' title="Run Status" />
                 </Grid>
             </Paper>

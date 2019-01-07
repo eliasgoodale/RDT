@@ -322,6 +322,7 @@ function mapDispatchToProps(dispatch: any) {
                 ...selected, 
                 tags: selected.tags.map((t: any) => {
                     delete t.id
+                    delete t.selected
                     return t
                 })
             }

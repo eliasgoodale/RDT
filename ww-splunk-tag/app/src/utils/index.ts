@@ -3,11 +3,12 @@ import { orderBy } from '@progress/kendo-data-query'
 
 const indexSchema = Joi.object().keys({
     id: Joi.string(),
+    selected: Joi.boolean(),
     isActive: Joi.boolean(),
     index: Joi.string().min(2).max(30),
     location: Joi.string().min(2).max(30),
     status: Joi.string().valid(["Production", "Test", "Inactive"]),
-    lastRun: Joi.date().required(),
+    lastRun: Joi.string(),
     runStatus: Joi.string().valid(["Success", "Failure", "N/A"]),
     entity: Joi.string().valid(["Producer", "SWD"]),
     nextRun: Joi.date().required(),

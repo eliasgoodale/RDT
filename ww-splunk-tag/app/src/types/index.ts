@@ -1,5 +1,6 @@
 export const newIndexTemplate = {
     id: "temp",
+    isActive: true,
     index: "",
     location: "",
     status: "Inactive",
