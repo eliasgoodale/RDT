@@ -1,4 +1,5 @@
 import * as Joi from 'joi'
+import { orderBy } from '@progress/kendo-data-query'
 
 const indexSchema = Joi.object().keys({
     id: Joi.string(),
@@ -22,15 +23,15 @@ const tagSchema = Joi.object().keys({
 })
 
 const validateIndex = (index: any) => {
-    const result = Joi.validate(index, indexSchema);
-    console.log(result);
-    return result;
+    const result = Joi.validate(index, indexSchema)
+    console.log(result)
+    return result
 } 
 
 const validateTag = (tag: any) => {
-    const result = Joi.validate(tag, tagSchema);
-    console.log(result);
-    return result;
+    const result = Joi.validate(tag, tagSchema)
+    console.log(result)
+    return result
 }
 
 const generateTags = (tags: any) => {
@@ -43,8 +44,14 @@ const generateTags = (tags: any) => {
     })
 }
 
+const sortActive = (data: any, sort: any) => {
+    return orderBy(data.filter((index: any) => index.isActive === true), sort)
+
+}
+
 export {
     generateTags,
+    sortActive,
     validateIndex,
     validateTag,
 }

@@ -3,7 +3,8 @@ import { newIndexTemplate } from '../types'
 const initialState: any = {
     selected: {},
     data: [],
-    createMode: false
+    createMode: false,
+    sort: []
 }
 
 export default (state = initialState, action: any) => {
@@ -24,6 +25,11 @@ export default (state = initialState, action: any) => {
                 data: [newIndexTemplate, ...state.data],
                 selected: newIndexTemplate,
                 createMode: true,
+            }
+        case 'indicesGrid/CHANGE_SORT':
+            return {
+                ...state,
+                sort: action.payload
             }
         case 'detailsModal/CANCEL_CHANGES':
             const newData = [...state.data]

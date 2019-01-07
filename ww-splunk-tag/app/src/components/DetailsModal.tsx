@@ -137,16 +137,8 @@ const DetailsForm = ({onChange, selected}: any): any => {
 
             <div style={styles.container}>
             <FormControl>
-            <TextField
-                id="lastRun"
-                type="datetime-local"
-                label="Last Run"
-                name="lastRun"
-                value={selected.lastRun}
-                InputProps={{
-                    readOnly: true
-                }}
-            />
+            <InputLabel htmlFor="age-native-simple">Last Run</InputLabel>
+                <Input value={selected.lastRun !== 'N/A' ? new Date(selected.lastRun).toLocaleString() : selected.lastRun} readOnly={true}/>
             </FormControl>
             </div>
 

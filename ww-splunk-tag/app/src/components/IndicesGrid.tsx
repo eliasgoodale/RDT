@@ -6,7 +6,8 @@ import * as ActionGroup from '../actions'
 import {
     Grid,
     GridColumn as Column,
-    GridToolbar
+    GridToolbar,
+    GridSortChangeEvent
   } from '@progress/kendo-react-grid'
 
 import { Paper, Button } from '@material-ui/core';
@@ -34,8 +35,8 @@ class IndicesGrid extends React.Component<any, {}> {
     }
 
     render() {
-        const {data, onRowClick, enterCreateMode, softDelete, selected} = this.props
-
+        const {data, onRowClick, enterCreateMode, softDelete, selected, sort, changeSort} = this.props
+        console.log(sort)
         return (
             <React.Fragment>
             <Paper style={styles.paper}>
@@ -43,9 +44,10 @@ class IndicesGrid extends React.Component<any, {}> {
                     style={styles.grid}
                     data={data}
                     onRowClick={onRowClick}
-                    filterable
                     resizable
                     sortable
+                    onSortChange={changeSort}
+                    sort={sort}
                     reorderable >
                     <GridToolbar>
                         <Button 
@@ -63,13 +65,13 @@ class IndicesGrid extends React.Component<any, {}> {
                             Delete Index
                         </Button>
                     </GridToolbar>
-
-                    <Column key='index' field='index' filter='text' title="Index" />
-                    <Column key='location' field='location' filter='text' title="Location" />
-                    <Column key='status' field='status' filter='text' title="Status" />
-                    <Column key='lastRun' field='lastRun' title="Last Run" 
+                    
+                    <Column sortable key='index' field='index' title="Index" />
+                    <Column sortable key='location' field='location' title="Location" />
+                    <Column sortable key='status' field='status' title="Status" />
+                    <Column sortable key='lastRun' field='lastRun' title="Last Run" 
                         cell = { (props) => <DateCell {...props}/> }/>
-                    <Column key='runStatus' field='runStatus' filter='text' title="Run Status" />
+                    <Column sortable key='runStatus' field='runStatus' title="Run Status" />
                 </Grid>
             </Paper>
             </React.Fragment>
@@ -81,6 +83,7 @@ function mapStateToProps(state: any) {
     return {
         data: state.indicesGrid.data,
         selected: state.detailsModal.selected,
+        sort: state.indicesGrid.sort,
     }
 }
 
@@ -98,6 +101,10 @@ function mapDispatchToProps(dispatch: any) {
              */
         
             dispatch(ActionGroup.collectionUpdate({id: id, isActive: false}))
+        },
+        changeSort: (e: GridSortChangeEvent) => {
+            console.log(e)
+            dispatch(ActionGroup.changeSortIG(e.sort))
         }
     }
 }

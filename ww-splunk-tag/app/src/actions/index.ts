@@ -1,4 +1,5 @@
 import HttpClient from '../client'
+import { SortDescriptor } from '@progress/kendo-data-query';
 
 
 
@@ -58,6 +59,10 @@ export const collectionGetAll = () => ({
      type: "indicesGrid/ENTER_CREATE"
  })
 
+ export const changeSortIG = (sort: SortDescriptor []) => ({
+     type: "indicesGrid/CHANGE_SORT",
+     payload: sort,
+ })
  /**
   * Details Modal
   */

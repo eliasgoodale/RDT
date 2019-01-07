@@ -1,6 +1,7 @@
 import { map, filter, mapTo, bufferTime} from 'rxjs/operators'
 import { combineEpics } from 'redux-observable'
 import { newIndexTemplate } from '../types';
+import { sortActive } from '../utils'
 
  const changeSelected = (dataItem: any) => ({
     type: 'detailsModal/CHANGE_SELECTED',
@@ -66,9 +67,10 @@ const processDataToIG = (action$: any, state$: any) => action$.pipe(
     filter(({ type }: any) => 
         type === 'collection/GET_ALL_FULFILLED' ||
         type === 'collection/UPDATE_FULFILLED' ||
-        type === 'collection/CREATE_FULFILLED'
+        type === 'collection/CREATE_FULFILLED' ||
+        type === 'indicesGrid/CHANGE_SORT'
     ),
-    map(() => importDataIG(state$.value.collection.data.filter((index: any) => index.isActive === true))),
+    map(() => importDataIG(sortActive(state$.value.collection.data, state$.value.indicesGrid.sort))),
 )
 
 const hideDetailsModal = (action$: any) => action$.pipe(
