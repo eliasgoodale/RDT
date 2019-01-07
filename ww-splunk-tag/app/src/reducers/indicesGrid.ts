@@ -25,6 +25,14 @@ export default (state = initialState, action: any) => {
                 selected: newIndexTemplate,
                 createMode: true,
             }
+        case 'detailsModal/CANCEL_CHANGES':
+            const newData = [...state.data]
+            newData.shift()
+            return state.createMode ? {
+                ...state,  
+                data: newData
+            } :
+            state
         case 'collection/CREATE_FULFILLED':
             return {
                 ...state,

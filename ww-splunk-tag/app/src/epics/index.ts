@@ -1,4 +1,4 @@
-import { map, filter } from 'rxjs/operators'
+import { map, filter, mapTo, bufferTime} from 'rxjs/operators'
 import { combineEpics } from 'redux-observable'
 import { newIndexTemplate } from '../types';
 
@@ -41,7 +41,9 @@ export const hideDetails = () => ({
     type: "detailsModal/HIDE"
 })
 
-const rowDoubleClickIG = (action$: any) => action$.pipe(
+
+
+const rowClickIG = (action$: any) => action$.pipe(
     filter(({ type }: any) => type === 'indicesGrid/ROW_CLICK'),
     map(({ payload }: any ) => changeSelected(payload))
 )
@@ -52,9 +54,9 @@ const enterCreateMode = (action$: any) => action$.pipe(
     map(() => changeSelected(newIndexTemplate))
 )
 
-const rowClickIG = (action$: any) => action$.pipe(
+const rowDoubleClickIG = (action$: any) => action$.pipe(
     filter(({ type }: any) =>
-        type === 'indicesGrid/ROW_CLICK' ||
+        type === 'indicesGrid/ROW_DOUBLE_CLICK' ||
         type === 'indicesGrid/ENTER_CREATE'
     ),
     map(({ payload }: any ) => showDetails())
@@ -93,12 +95,22 @@ const reIndexTags = (action$: any, state$: any) => action$.pipe(
     ))
 )
 
+const doubleClick = (action$: any) => action$.pipe(
+    filter(({ type }: any) => type === 'indicesGrid/ROW_CLICK'),
+    bufferTime(500),
+    map((buffer: any) => buffer.length),
+    filter((len: any) => len >= 2),
+    mapTo({type: 'indicesGrid/ROW_DOUBLE_CLICK' }),
+
+)
+
 
 export default combineEpics(
+    doubleClick,
     enterCreateMode,
     reIndexTags,
     hideDetailsModal,
-    rowDoubleClickIG,
     rowClickIG,
+    rowDoubleClickIG,
     processDataToIG,
     loadBackupIndex)

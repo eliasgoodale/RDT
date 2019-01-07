@@ -3,10 +3,13 @@ export const newIndexTemplate = {
     index: "",
     location: "",
     status: "Inactive",
-    lastRun: "",
+    lastRun: "N/A",
     runStatus: "N/A",
     entity: "Producer",
-    nextRun: "",
+    /**
+     * Elegance, Incarnate.
+     */
+    nextRun: new Date(Date.now()).toISOString().split('.')[0],
     tags: []
 }
 

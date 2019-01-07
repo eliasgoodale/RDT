@@ -20,9 +20,6 @@ const styles = {
     },
     grid: {
       maxHeight: 750,
-      container: {
-        flex: 2,
-      }
     },
     button: {
         margin: '5px'
@@ -83,7 +80,7 @@ class IndicesGrid extends React.Component<any, {}> {
 function mapStateToProps(state: any) {
     return {
         data: state.indicesGrid.data,
-        selected: state.indicesGrid.selected,
+        selected: state.detailsModal.selected,
     }
 }
 
@@ -99,6 +96,7 @@ function mapDispatchToProps(dispatch: any) {
             /**
              * Replace with patch
              */
+        
             dispatch(ActionGroup.collectionUpdate({id: id, isActive: false}))
         }
     }

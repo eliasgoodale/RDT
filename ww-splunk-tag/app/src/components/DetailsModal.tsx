@@ -56,14 +56,7 @@ const styles = {
 }
 
 
-const DetailsForm = ({
-    saveChanges,
-    onChange,
-    selected,
-    patch,
-    createMode,
-    createIndex,
-    onCancel}: any): any => {
+const DetailsForm = ({onChange, selected}: any): any => {
 
     const [panes, setPanes] = useState(panesDefault)
     return (
