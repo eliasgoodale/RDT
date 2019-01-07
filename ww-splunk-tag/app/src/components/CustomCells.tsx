@@ -1,15 +1,28 @@
 import * as React from 'react';
-import { DatePicker } from '@progress/kendo-react-dateinputs';
+import TextField from '@material-ui/core/TextField'
 
+const styles = {
+    textField: {
+        width: "100%",
+        height: "100%"
+    },
+}
 class DateCell extends React.Component<any, {}> {
 
     render() {
         const { lastRun } = this.props.dataItem;
         return (
-            <DatePicker
-                format={"dd-MMM-yyyy HH:mm:ss"}
-                value={new Date(lastRun)}
-                width={200} />
+            <TextField style={styles.textField}
+            id="lastRun"
+            type="datetime-local"
+            name="lastRun"
+            value={lastRun}
+            variant="filled"
+            InputProps={{
+                readOnly: true
+            }}
+        />
+
         )
     }
 }

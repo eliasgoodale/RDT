@@ -1,5 +1,6 @@
 import { compare } from 'fast-json-patch'
 import { newTagTemplate } from '../types'
+import { generateTags } from '../utils'
 
 const initialState = {
     visible: false,
@@ -55,24 +56,13 @@ export default (state=initialState, action: any) => {
             }
 
         case 'tags/CHANGE_TAG_DATA':
-            const newSelectedTags = {
-                ...state.selected, 
-                tags: state.selected.tags.map((t: any) => {
-                    if (t.id[t.id.length - 1] === '0') {
-                        let tag = {
-                            ...t,
-                            [action.payload.field]: action.payload.value
-                        }
-                        return {
-                            ...tag,
-                            splunkTag: tag.historianTag.replace(tag.prefix, "")
-                        }
-                    } else {
-                        return t.id === action.payload.id ? 
-                        { ...t, [action.payload.field]: action.payload.value } : t 
-                    }
-                })
-            }
+        const newSelectedTags = {
+            ...state.selected, 
+            tags: state.selected.tags.map((t: any) => {
+                return t.id === action.payload.id ? 
+                { ...t, [action.payload.field]: action.payload.value } : t
+            })
+        }
             return {
                 ...state,
                 selected: newSelectedTags,
@@ -112,6 +102,15 @@ export default (state=initialState, action: any) => {
                 selected: {
                     ...state.selected,
                     tags: action.payload
+                }
+            }
+        case 'tags/GENERATE_SPLUNK_TAGS':
+            const generatedTags = generateTags(state.selected.tags);
+            return {
+                ...state,
+                selected: {
+                    ...state.selected,
+                    tags: generatedTags
                 }
             }
         default:

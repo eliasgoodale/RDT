@@ -37,7 +37,7 @@ class IndicesGrid extends React.Component<any, {}> {
     }
 
     render() {
-        const {data, onRowClick, enterCreateMode} = this.props
+        const {data, onRowClick, enterCreateMode, softDelete, selected} = this.props
 
         return (
             <React.Fragment>
@@ -58,7 +58,11 @@ class IndicesGrid extends React.Component<any, {}> {
                             style={styles.button}>
                             New Index
                         </Button>
-                        <Button variant="contained" size="small" style={styles.button}>
+                        <Button 
+                         variant="contained"
+                         size="small" 
+                         style={styles.button}
+                         onClick={() => softDelete(selected.id)}>
                             Delete Index
                         </Button>
                     </GridToolbar>
@@ -90,6 +94,12 @@ function mapDispatchToProps(dispatch: any) {
         },
         enterCreateMode: () => {
             dispatch(ActionGroup.enterCreateIG())
+        },
+        softDelete: (id: string) => {
+            /**
+             * Replace with patch
+             */
+            dispatch(ActionGroup.collectionUpdate({id: id, isActive: false}))
         }
     }
 }

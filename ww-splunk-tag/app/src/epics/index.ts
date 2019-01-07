@@ -66,7 +66,7 @@ const processDataToIG = (action$: any, state$: any) => action$.pipe(
         type === 'collection/UPDATE_FULFILLED' ||
         type === 'collection/CREATE_FULFILLED'
     ),
-    map(() => importDataIG(state$.value.collection.data)),
+    map(() => importDataIG(state$.value.collection.data.filter((index: any) => index.isActive === true))),
 )
 
 const hideDetailsModal = (action$: any) => action$.pipe(

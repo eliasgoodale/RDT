@@ -2,6 +2,7 @@ import * as Joi from 'joi'
 
 const indexSchema = Joi.object().keys({
     id: Joi.string(),
+    isActive: Joi.boolean(),
     index: Joi.string().min(2).max(30),
     location: Joi.string().min(2).max(30),
     status: Joi.string().valid(["Production", "Test", "Inactive"]),
@@ -32,7 +33,18 @@ const validateTag = (tag: any) => {
     return result;
 }
 
-export { 
+const generateTags = (tags: any) => {
+    return tags.map((t: any) => {
+        if (t.splunkTag === "") {
+            console.log(t)
+            t.splunkTag = t.historianTag.replace(t.prefix, "")
+        }
+        return t
+    })
+}
+
+export {
+    generateTags,
     validateIndex,
     validateTag,
 }

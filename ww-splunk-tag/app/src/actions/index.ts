@@ -111,3 +111,7 @@ export const deleteTag = (id: string) => ({
 export const deleteAllTags = () => ({
     type: "tags/DELETE_ALL_TAGS"
 })
+
+export const generateTags = () => ({
+    type: "tags/GENERATE_SPLUNK_TAGS"
+})

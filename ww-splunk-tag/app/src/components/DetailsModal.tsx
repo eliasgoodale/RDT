@@ -7,13 +7,13 @@ import { Splitter } from '@progress/kendo-react-layout'
 
 import { Grid, GridColumn as Column, GridToolbar } from '@progress/kendo-react-grid'
 
-import { Dialog } from '@progress/kendo-react-dialogs'
+import { Dialog, DialogActionsBar } from '@progress/kendo-react-dialogs'
 
 import { Button } from '@progress/kendo-react-buttons'
 
 import { connect } from 'react-redux';
 
-import {validateIndex, validateTag} from '../middleware'
+import {validateIndex, validateTag} from '../utils'
 
 import Input  from '@material-ui/core/Input'
 import TextField from '@material-ui/core/TextField';
@@ -44,7 +44,7 @@ const styles = {
         margin: '5px'
     },
     pane: {
-        height: 300,
+        height: 270,
         padding: 10,
         alignContent: 'center'
     },
@@ -141,29 +141,6 @@ const DetailsForm = ({
            </div>
 
            <div className="pane-content" style={styles.pane}>
-           <div style={styles.container}>
-           <Button 
-            style={styles.button}>
-            Run Now</Button>
-
-            { createMode ?  
-            <Button
-            style={styles.button}
-            onClick={() => createIndex(selected)}
-            disabled={validateIndex(selected).error !== null}>
-               Create </Button> 
-               :
-           <Button 
-            style={styles.button}
-            onClick={() => saveChanges(selected)}
-            disabled={validateIndex(selected).error !== null || patch.length === 0}>
-                Save </Button> }
-
-           <Button 
-            style={styles.button}
-            onClick={onCancel}>
-            Cancel</Button>
-            </div>
 
             <div style={styles.container}>
             <FormControl>
@@ -172,10 +149,9 @@ const DetailsForm = ({
                 type="datetime-local"
                 label="Last Run"
                 name="lastRun"
-                onChange={onChange}
                 value={selected.lastRun}
-                InputLabelProps={{
-                    shrink: true,
+                InputProps={{
+                    readOnly: true
                 }}
             />
             </FormControl>
@@ -225,7 +201,8 @@ class DetailsModal extends React.Component<any, {}> {
             tagInEdit,
             createTag,
             deleteTag,
-            deleteAllTags,
+            generateTags,
+            // deleteAllTags,
             cancelChanges,
             patch,
             createMode,
@@ -281,9 +258,9 @@ class DetailsModal extends React.Component<any, {}> {
                         
                     <GridToolbar>
                     <div>
-                        <Button 
+                        {/* <Button 
                             style={styles.button}>
-                            Import from Excel</Button>
+                            Import from Excel</Button> */}
                         <Button 
                             style={styles.button}
                             onClick={createTag}
@@ -295,17 +272,47 @@ class DetailsModal extends React.Component<any, {}> {
                             Remove Tag </Button>
                         <Button 
                             style={styles.button}
+                            onClick={generateTags}>
+                            Generate Splunk Tags
+                            </Button>
+                        {/* <Button 
+                            style={styles.button}
                             onClick={deleteAllTags}>
-                            Remove All Tags</Button>
+                            Remove All Tags</Button> */}
                         <Typeography style={{float: 'right' }} ># of tags: {tags.length}</Typeography>
                     </div>
                     </GridToolbar>
                         <Column key="prefix" field="prefix" title="Prefix"/>
                         <Column key="historianTag" field="historianTag" title="Historian Tag"/>
-                        <Column key="splunkTag" field="splunkTag" title="Splunk Tag" editable={false}/>
+                        <Column key="splunkTag" field="splunkTag" title="Splunk Tag"/>
                     
                     </Grid>
                     </Paper>
+                    <DialogActionsBar>
+                        {/* <Button 
+                         style={styles.button}>
+                         Run Now</Button> */}
+
+                    { createMode ?  
+                        <Button
+                         style={styles.button}
+                         onClick={() => createIndex(selected)}
+                         disabled={validateIndex(selected).error !== null}>
+                         Create </Button> 
+                        :
+                        <Button 
+                         style={styles.button}
+                         onClick={() => saveChanges(selected)}
+                         disabled={validateIndex(selected).error !== null || patch.length === 0}>
+                         Save </Button> }
+
+                        <Button 
+                        style={styles.button}
+                        onClick={cancelChanges}>
+                        Cancel</Button>
+
+                    </DialogActionsBar>
+
             </Dialog>
         )
     }
@@ -356,7 +363,8 @@ function mapDispatchToProps(dispatch: any) {
         },
         createTag: () => dispatch(ActionGroup.createTag()),
         deleteTag: (id: string) => dispatch(ActionGroup.deleteTag(id)),
-        deleteAllTags: () => dispatch(ActionGroup.deleteAllTags())
+        generateTags: () => dispatch(ActionGroup.generateTags())
+        // deleteAllTags: () => dispatch(ActionGroup.deleteAllTags())
     }
 }
 
