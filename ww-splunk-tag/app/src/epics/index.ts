@@ -1,7 +1,7 @@
 import { map, filter, mapTo, bufferTime} from 'rxjs/operators'
 import { combineEpics } from 'redux-observable'
 import { newIndexTemplate } from '../types';
-import { sortActive } from '../utils'
+import { sortActive, sortTags } from '../utils'
 
  const changeSelected = (dataItem: any) => ({
     type: 'detailsModal/CHANGE_SELECTED',
@@ -13,9 +13,14 @@ import { sortActive } from '../utils'
     }
 })
 
- const importDataIG = (data: any) => ({
+ const importSortedDataIG = (data: any) => ({
     type: "indicesGrid/IMPORT_DATA",
     payload: data
+})
+
+const importSortedDataTags = (tags: any) => ({
+    type: "tags/IMPORT_SORTED",
+    payload: tags,
 })
 
 const loadBackup = (backupData: any) => {
@@ -63,6 +68,13 @@ const rowDoubleClickIG = (action$: any) => action$.pipe(
     map(({ payload }: any ) => showDetails())
 )
 
+const processTagsData = (action$: any, state$: any) => action$.pipe(
+    filter (({ type }: any) => type === 'tags/CHANGE_SORT' ||
+                                type === 'detailsModal/CHANGE_SELECTED'
+    ),
+    map(() => importSortedDataTags(sortTags(state$.value.detailsModal.selected.tags, state$.value.detailsModal.sort)))
+)
+
 const processDataToIG = (action$: any, state$: any) => action$.pipe(
     filter(({ type }: any) => 
         type === 'collection/GET_ALL_FULFILLED' ||
@@ -70,7 +82,7 @@ const processDataToIG = (action$: any, state$: any) => action$.pipe(
         type === 'collection/CREATE_FULFILLED' ||
         type === 'indicesGrid/CHANGE_SORT'
     ),
-    map(() => importDataIG(sortActive(state$.value.collection.data, state$.value.indicesGrid.sort))),
+    map(() => importSortedDataIG(sortActive(state$.value.collection.data, state$.value.indicesGrid.sort))),
 )
 
 const hideDetailsModal = (action$: any) => action$.pipe(
@@ -115,4 +127,5 @@ export default combineEpics(
     rowClickIG,
     rowDoubleClickIG,
     processDataToIG,
+    processTagsData,
     loadBackupIndex)

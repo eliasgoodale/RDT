@@ -50,9 +50,14 @@ const sortActive = (data: any, sort: any) => {
 
 }
 
+const sortTags = (tags: any, sort: any) => {
+    return orderBy(tags, sort);
+}
+
 export {
     generateTags,
     sortActive,
+    sortTags,
     validateIndex,
     validateTag,
 }

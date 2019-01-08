@@ -4,7 +4,7 @@ const initialState: any = {
     selected: {},
     data: [],
     createMode: false,
-    sort: []
+    sort: [{field: 'index', dir: 'asc'}]
 }
 
 export default (state = initialState, action: any) => {

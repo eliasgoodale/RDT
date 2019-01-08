@@ -5,7 +5,7 @@ import * as ActionGroup from '../actions'
 
 import { Splitter } from '@progress/kendo-react-layout'
 
-import { Grid, GridColumn as Column, GridToolbar } from '@progress/kendo-react-grid'
+import { Grid, GridColumn as Column, GridToolbar, GridSortChangeEvent } from '@progress/kendo-react-grid'
 
 import { Dialog, DialogActionsBar } from '@progress/kendo-react-dialogs'
 
@@ -191,7 +191,9 @@ class DetailsModal extends React.Component<any, {}> {
             cancelChanges,
             patch,
             createMode,
-            createIndex } = this.props
+            createIndex,
+            sort,
+            changeSort } = this.props
 
         const tags = selected.tags.map( (t: any) => {
             return {
@@ -223,6 +225,9 @@ class DetailsModal extends React.Component<any, {}> {
                     <Paper elevation={10}>
                     <Grid
                         style={styles.grid}
+                        sortable
+                        onSortChange={changeSort}
+                        sort={sort}
                         data={tags}
                         onRowClick={(e: any) => {
                             if(tagInEdit) {
@@ -299,6 +304,7 @@ class DetailsModal extends React.Component<any, {}> {
                     </DialogActionsBar>
 
             </Dialog>
+            
         )
     }
 }
@@ -310,7 +316,8 @@ function mapStateToProps(state: any) {
         visible: state.detailsModal.visible,
         tagInEdit: state.detailsModal.tagInEdit,
         patch: state.detailsModal.patch,
-        createMode: state.indicesGrid.createMode
+        createMode: state.indicesGrid.createMode,
+        sort: state.detailsModal.sort
     }
 }
 
@@ -337,6 +344,9 @@ function mapDispatchToProps(dispatch: any) {
                 })
             }
             dispatch(ActionGroup.collectionCreate(newIndex))
+        },
+        changeSort: (e: GridSortChangeEvent) => {
+            dispatch(ActionGroup.changeSortTags(e.sort))
         },
         onRowClick: (e: any) => {
             dispatch(ActionGroup.changeTagInEdit(e.dataItem.id))

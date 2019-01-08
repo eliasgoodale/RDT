@@ -120,3 +120,8 @@ export const deleteAllTags = () => ({
 export const generateTags = () => ({
     type: "tags/GENERATE_SPLUNK_TAGS"
 })
+
+export const changeSortTags = (sort: any) => ({
+    type: "tags/CHANGE_SORT",
+    payload: sort
+})

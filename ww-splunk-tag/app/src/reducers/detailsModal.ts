@@ -14,10 +14,24 @@ const initialState = {
     },
     patch: [],
     tagInEdit: null,
+    sort: [{field: 'historianTag', dir: 'asc'}],
 }
 
 export default (state=initialState, action: any) => {
     switch(action.type) {
+        case 'tags/CHANGE_SORT':
+            return {
+                ...state,
+                sort: action.payload
+            }
+        case 'tags/IMPORT_SORTED':
+            return {
+                ...state,
+                selected: {
+                    ...state.selected,
+                    tags: action.payload
+                }
+            }
         case 'detailsModal/SHOW':
             return {
                 ...state,
