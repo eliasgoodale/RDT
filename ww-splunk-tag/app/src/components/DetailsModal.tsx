@@ -62,7 +62,7 @@ const styles = {
         height: 10,
     },
     radioChecked: {
-        color: deepOrange[500],
+        color: deepOrange[600],
 
     },
     radio: {
