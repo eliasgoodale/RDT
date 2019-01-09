@@ -5,7 +5,7 @@ import * as ActionGroup from '../actions'
 
 import { Splitter } from '@progress/kendo-react-layout'
 
-import { Grid, GridColumn as Column, GridToolbar, GridSortChangeEvent } from '@progress/kendo-react-grid'
+import { Grid, GridColumn as Column, GridToolbar } from '@progress/kendo-react-grid'
 
 import { Dialog, DialogActionsBar } from '@progress/kendo-react-dialogs'
 
@@ -22,7 +22,9 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Typeography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
-
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import { FormControlLabel } from '@material-ui/core';
 
 const panesDefault = [
     { size: '50%', min: '20px'},
@@ -53,12 +55,34 @@ const styles = {
     grid: {
         height: 450
     },
+    radio: {
+        marginTop: 10,
+        width: 10,
+        height: 10,
+    }
 }
 
+
+// const inputBox = (props: any) => {
+//     return (
+//         <div style={styles.container}>
+//         <FormControl>
+//         <InputLabel htmlFor="status">Index</InputLabel>
+//         <br/>
+//             <Input style={styles.input}
+//             name="index"
+//             value={props.selected.index}
+//             onChange={props.onChange} 
+//             />
+//         </FormControl>
+//         </div>
+//     )
+// }
 
 const DetailsForm = ({onChange, selected}: any): any => {
 
     const [panes, setPanes] = useState(panesDefault)
+    const [dateInput, setDateInput] = useState('lastRun')
     return (
         <Paper elevation={5}>
         <Splitter
@@ -137,8 +161,16 @@ const DetailsForm = ({onChange, selected}: any): any => {
 
             <div style={styles.container}>
             <FormControl>
-            <InputLabel htmlFor="age-native-simple">Last Run</InputLabel>
-                <Input value={selected.lastRun !== 'N/A' ? new Date(selected.lastRun).toLocaleString() : selected.lastRun} readOnly={true}/>
+            <TextField
+                id="lastRun"
+                type="datetime-local"
+                label="Last Run"
+                name="lastRun"
+                value={selected.lastRun}
+                InputProps={{
+                    readOnly: true
+                }}
+            />
             </FormControl>
             </div>
 
@@ -148,23 +180,40 @@ const DetailsForm = ({onChange, selected}: any): any => {
                 <Input value={selected.runStatus} readOnly={true}/>
             </FormControl>
             </div>
-            
-            <div style={styles.container}>
+           
+           
+            <InputLabel htmlFor="radioGroupLabel">Next run pull tags from:</InputLabel>
+            <br/>
+
+        <FormControl component="fieldset">
+
+            <RadioGroup
+            style={styles.radio}
+            aria-label="DateSelectionControl"
+            name="dateSelect"
+            value={dateInput}
+            onChange={(e: any) => setDateInput(e.target.value)}
+          >
+        <FormControlLabel  value="lastRun" control={<Radio />} label="Last Run Date"/>
+        <FormControlLabel  value="user" control={<Radio />} label="Select Date"/>
+        </RadioGroup>
+
+        </FormControl>
+        <div style={styles.container}>
             <FormControl>
                 <TextField
                     id="datetime-local"
                     type="datetime-local"
-                    label="Next run pull tags from"
                     name="nextRun"
                     onChange={onChange}
-                    value={selected.nextRun}
+                    disabled={dateInput === 'lastRun'}
+                    value={dateInput === 'lastRun' ? selected.lastRun : selected.nextRun}
                     InputLabelProps={{
                         shrink: true,
                     }}
                 />
             </FormControl>
             </div>
-
         </div>
        </Splitter>
        </Paper>
@@ -191,9 +240,7 @@ class DetailsModal extends React.Component<any, {}> {
             cancelChanges,
             patch,
             createMode,
-            createIndex,
-            sort,
-            changeSort } = this.props
+            createIndex } = this.props
 
         const tags = selected.tags.map( (t: any) => {
             return {
@@ -225,9 +272,6 @@ class DetailsModal extends React.Component<any, {}> {
                     <Paper elevation={10}>
                     <Grid
                         style={styles.grid}
-                        sortable
-                        onSortChange={changeSort}
-                        sort={sort}
                         data={tags}
                         onRowClick={(e: any) => {
                             if(tagInEdit) {
@@ -304,7 +348,6 @@ class DetailsModal extends React.Component<any, {}> {
                     </DialogActionsBar>
 
             </Dialog>
-            
         )
     }
 }
@@ -316,8 +359,7 @@ function mapStateToProps(state: any) {
         visible: state.detailsModal.visible,
         tagInEdit: state.detailsModal.tagInEdit,
         patch: state.detailsModal.patch,
-        createMode: state.indicesGrid.createMode,
-        sort: state.detailsModal.sort
+        createMode: state.indicesGrid.createMode
     }
 }
 
@@ -329,7 +371,6 @@ function mapDispatchToProps(dispatch: any) {
                 ...selected, 
                 tags: selected.tags.map((t: any) => {
                     delete t.id
-                    delete t.selected
                     return t
                 })
             }
@@ -344,9 +385,6 @@ function mapDispatchToProps(dispatch: any) {
                 })
             }
             dispatch(ActionGroup.collectionCreate(newIndex))
-        },
-        changeSort: (e: GridSortChangeEvent) => {
-            dispatch(ActionGroup.changeSortTags(e.sort))
         },
         onRowClick: (e: any) => {
             dispatch(ActionGroup.changeTagInEdit(e.dataItem.id))
