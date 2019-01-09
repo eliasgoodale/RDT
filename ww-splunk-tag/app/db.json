@@ -107,6 +107,29 @@
           "splunkTag": "TEST"
         }
       ]
+    },
+    {
+      "id": "nTtCUdJ",
+      "isActive": true,
+      "index": "Example_Producer",
+      "location": "Example",
+      "status": "Test",
+      "lastRun": "N/A",
+      "runStatus": "N/A",
+      "entity": "Producer",
+      "nextRun": "2019-01-09T01:43:36",
+      "tags": [
+        {
+          "prefix": "EXAMPLE_",
+          "historianTag": "EXAMPLE_USER_OVERRIDE",
+          "splunkTag": "OVERRIDE"
+        },
+        {
+          "prefix": "EXAMPLE_",
+          "historianTag": "EXAMPLE_GENERATED",
+          "splunkTag": "GENERATED"
+        }
+      ]
     }
   ]
 }

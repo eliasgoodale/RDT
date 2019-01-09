@@ -56,7 +56,6 @@ const rowClickIG = (action$: any) => action$.pipe(
 
 const enterCreateMode = (action$: any) => action$.pipe(
     filter (({ type }: any) => type === 'indicesGrid/ENTER_CREATE'),
-    map(() => loadBackup([newIndexTemplate])),
     map(() => changeSelected(newIndexTemplate))
 )
 

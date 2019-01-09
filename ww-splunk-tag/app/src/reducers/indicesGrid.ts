@@ -33,12 +33,15 @@ export default (state = initialState, action: any) => {
             }
         case 'detailsModal/CANCEL_CHANGES':
             const newData = [...state.data]
-            newData.shift()
-            return state.createMode ? {
-                ...state,  
+            if (state.createMode === true) { 
+                newData.shift()
+            }
+            return {
+                ...state,
+                selected: initialState.selected, 
+                createMode: false,
                 data: newData
-            } :
-            state
+            } 
         case 'collection/CREATE_FULFILLED':
             return {
                 ...state,
