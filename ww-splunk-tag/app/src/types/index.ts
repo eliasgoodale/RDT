@@ -4,7 +4,7 @@ export const newIndexTemplate = {
     index: "",
     location: "",
     status: "Inactive",
-    lastRun: "N/A",
+    lastRun: "",
     runStatus: "N/A",
     entity: "Producer",
     /**

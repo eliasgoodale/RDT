@@ -25,7 +25,8 @@ import Paper from '@material-ui/core/Paper'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import { FormControlLabel } from '@material-ui/core';
-
+import deepOrange from '@material-ui/core/colors/deepOrange'
+import grey from '@material-ui/core/colors/grey'
 const panesDefault = [
     { size: '50%', min: '20px'},
     { }
@@ -55,29 +56,20 @@ const styles = {
     grid: {
         height: 450
     },
-    radio: {
+    radioGroup: {
         marginTop: 10,
         width: 10,
         height: 10,
+    },
+    radioChecked: {
+        color: deepOrange[500],
+
+    },
+    radio: {
+        color: grey[500]
     }
 }
 
-
-// const inputBox = (props: any) => {
-//     return (
-//         <div style={styles.container}>
-//         <FormControl>
-//         <InputLabel htmlFor="status">Index</InputLabel>
-//         <br/>
-//             <Input style={styles.input}
-//             name="index"
-//             value={props.selected.index}
-//             onChange={props.onChange} 
-//             />
-//         </FormControl>
-//         </div>
-//     )
-// }
 
 const DetailsForm = ({onChange, selected}: any): any => {
 
@@ -168,7 +160,10 @@ const DetailsForm = ({onChange, selected}: any): any => {
                 name="lastRun"
                 value={selected.lastRun}
                 InputProps={{
-                    readOnly: true
+                    readOnly: true,
+                }}
+                InputLabelProps={{
+                    shrink: true,
                 }}
             />
             </FormControl>
@@ -188,14 +183,14 @@ const DetailsForm = ({onChange, selected}: any): any => {
         <FormControl component="fieldset">
 
             <RadioGroup
-            style={styles.radio}
+            style={styles.radioGroup}
             aria-label="DateSelectionControl"
             name="dateSelect"
             value={dateInput}
             onChange={(e: any) => setDateInput(e.target.value)}
           >
-        <FormControlLabel  value="lastRun" control={<Radio />} label="Last Run Date"/>
-        <FormControlLabel  value="user" control={<Radio />} label="Select Date"/>
+        <FormControlLabel  value="lastRun" control={<Radio style={dateInput === 'lastRun' ? styles.radioChecked : styles.radio}/>} label="Last Run Date"/>
+        <FormControlLabel  value="user" control={<Radio style={dateInput === 'user' ? styles.radioChecked : styles.radio}/>} label="Select Date"/>
         </RadioGroup>
 
         </FormControl>
@@ -256,7 +251,7 @@ class DetailsModal extends React.Component<any, {}> {
                 <Dialog
                     width={750}
                     height={900}
-                    title="Details View"
+                    title="Details"
                     onClose={cancelChanges}>
                 <div>
                     <DetailsForm
