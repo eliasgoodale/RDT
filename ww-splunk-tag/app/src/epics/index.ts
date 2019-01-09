@@ -111,7 +111,7 @@ const reIndexTags = (action$: any, state$: any) => action$.pipe(
 
 const doubleClick = (action$: any) => action$.pipe(
     filter(({ type }: any) => type === 'indicesGrid/ROW_CLICK'),
-    bufferTime(750),
+    bufferTime(1000),
     map((buffer: any) => buffer.length),
     filter((len: any) => len >= 2),
     mapTo({type: 'indicesGrid/ROW_DOUBLE_CLICK' }),
