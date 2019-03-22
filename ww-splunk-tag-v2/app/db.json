@@ -1,0 +1,135 @@
+{
+  "indices": [
+    {
+      "id": "8fs9cde",
+      "isActive": true,
+      "index": "Galaxy_SWD",
+      "location": "Galaxy",
+      "status": "Production",
+      "lastRun": "2017-05-04T11:01",
+      "runStatus": "Success",
+      "entity": "SWD",
+      "nextRun": "2017-05-04T11:30",
+      "tags": [
+        {
+          "prefix": "asfasdfdsaf",
+          "historianTag": "asdfadsfadsfd",
+          "splunkTag": "asdfadsfadsfd"
+        },
+        {
+          "prefix": "asdfsdfs",
+          "historianTag": "fasdfadsfasdf",
+          "splunkTag": "fasdfadsfasdf"
+        }
+      ]
+    },
+    {
+      "id": "3389ffd",
+      "isActive": true,
+      "index": "Quale_SWD",
+      "location": "Quale",
+      "status": "Production",
+      "lastRun": "2017-05-04T11:30",
+      "runStatus": "Success",
+      "entity": "SWD",
+      "nextRun": "2017-05-24T10:30",
+      "tags": [
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_FIT_20101.Total_Today",
+          "splunkTag": "FIT_2101.Total_Today"
+        },
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_FIT_33263.Temperature",
+          "splunkTag": "FIT_33263.Temperature"
+        },
+        {
+          "prefix": "NDSNS_",
+          "historianTag": "NDSNS_FIT_221a.Total_Continuous",
+          "splunkTag": "FIT_221a.Total_Continuous"
+        }
+      ]
+    },
+    {
+      "id": "jd9d9d",
+      "isActive": true,
+      "index": "Dahl_SWDs",
+      "location": "Dahls",
+      "status": "Production",
+      "lastRun": "2017-05-04T11:30",
+      "runStatus": "Success",
+      "entity": "Producer",
+      "nextRun": "2017-05-24T10:30",
+      "tags": [
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_DPIT_902.Value",
+          "splunkTag": "DPIT_902.Value"
+        },
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_FIT_33172.Temperature",
+          "splunkTag": "FIT_33172.Temperature"
+        },
+        {
+          "prefix": "NDSNS_",
+          "historianTag": "NDSNS_FIT_55834.Total_Continuous",
+          "splunkTag": "FIT_55834.Total_Continuous"
+        }
+      ],
+      "selected": true
+    },
+    {
+      "id": "RHBEkQH",
+      "index": "Example_SWD",
+      "isActive": false,
+      "location": "Example",
+      "status": "Test",
+      "lastRun": "N/A",
+      "runStatus": "N/A",
+      "entity": "SWD",
+      "nextRun": "2019-01-07T23:29:51",
+      "tags": [
+        {
+          "prefix": "",
+          "historianTag": "",
+          "splunkTag": ""
+        },
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_REAL",
+          "splunkTag": "REAL"
+        },
+        {
+          "prefix": "NDGAL_",
+          "historianTag": "NDGAL_TEST",
+          "splunkTag": "TEST"
+        }
+      ]
+    },
+    {
+      "id": "nTtCUdJ",
+      "isActive": true,
+      "index": "Example_Producer",
+      "location": "Example",
+      "status": "Test",
+      "lastRun": "N/A",
+      "runStatus": "N/A",
+      "entity": "Producer",
+      "nextRun": "2019-01-09T01:43:36",
+      "tags": [
+        {
+          "prefix": "EXAMPLE_",
+          "historianTag": "EXAMPLE_USER_OVERRIDE",
+          "splunkTag": "OVERRIDE"
+        },
+        {
+          "prefix": "EXAMPLE_",
+          "historianTag": "EXAMPLE_GENERATED",
+          "splunkTag": "GENERATED"
+        }
+      ]
+    }
+  ]
+}
