@@ -2,8 +2,14 @@ import { map, filter, mapTo, bufferTime} from 'rxjs/operators'
 import { combineEpics } from 'redux-observable'
 import { newIndexTemplate } from '../types';
 import { sortActive, sortTags } from '../utils'
-import { indexCollectionSetupRoutine } from '../startup';
+
 import { AxiosResponse } from 'axios';
+
+
+import { handleGetAllRequestFulfillment, handleCreateRequestFulfillment, handleUpdateRequestFulfillment } from './requests';
+
+
+
  const changeSelected = (dataItem: any) => ({
     type: 'detailsModal/CHANGE_SELECTED',
     payload: {
@@ -53,16 +59,6 @@ export const logAction = (payload: any) => ({
     payload: payload
 })
 
-export const indexCollectionSetup = (dataLayerResponse: AxiosResponse) => ({
-    type: 'collection/INITIALIZATION_COMPLETE',
-    payload: indexCollectionSetupRoutine(dataLayerResponse)
-})
-
-const setupIndexCollection = (action$: any, state$: any) => action$.pipe(
-    filter(({ type }: any) => type === 'collection/GET_ALL_FULFILLED'),
-    map(({ payload }: any) => indexCollectionSetup(payload))
-)
-
 const rowClickIG = (action$: any) => action$.pipe(
     filter(({ type }: any) => type === 'indicesGrid/ROW_CLICK'),
     map(({ payload }: any ) => changeSelected(payload))
@@ -90,7 +86,7 @@ const processTagsData = (action$: any, state$: any) => action$.pipe(
 
 const processDataToIG = (action$: any, state$: any) => action$.pipe(
     filter(({ type }: any) => 
-        type === 'collection/INITIALIZATION_COMPLETE' ||
+        type === 'collection/GET_ALL_SUCCESS' ||
         type === 'collection/UPDATE_FULFILLED' ||
         type === 'collection/CREATE_FULFILLED' ||
         type === 'indicesGrid/CHANGE_SORT'
@@ -133,7 +129,9 @@ const doubleClick = (action$: any) => action$.pipe(
 
 
 export default combineEpics(
-    setupIndexCollection,
+    handleGetAllRequestFulfillment,
+    handleCreateRequestFulfillment,
+    handleUpdateRequestFulfillment,
     doubleClick,
     enterCreateMode,
     reIndexTags,

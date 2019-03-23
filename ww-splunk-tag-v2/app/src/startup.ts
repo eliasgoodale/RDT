@@ -27,17 +27,6 @@ import { logAction } from './epics';
  */
 
 
-export function indexCollectionSetupRoutine (response: AxiosResponse) {
-    const { data } = response;
-    const collection = new IndexCollection(data, defaultTemplate);
-
-
-    // TODO add validation on initial run of collection;
-
-    return collection.serializedMembers
-}
-
-
 export default function applicationStartup(directive: string) {
         
         switch(directive) {

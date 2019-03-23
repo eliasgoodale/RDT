@@ -93,12 +93,30 @@ export class IndexCollection {
     public serializedMembers: IndexJSON[];
     public defaultValues: IndexJSON;
 
-    constructor(serializedInput: Partial<IndexJSON>[], defaultValues: IndexJSON) {
+    constructor( defaultValues: IndexJSON) {
         this.defaultValues = defaultValues;
-        this.serializedMembers = this.fillEmptyProps(serializedInput);
-        this.members = this.createMembers(this.serializedMembers);
+        this.serializedMembers = []
+        this.members = []
     }
 
+
+    public addData(serializedInput: Partial<IndexJSON>[]) {
+        const newSerialized = this.fillEmptyProps(serializedInput);
+        this.serializedMembers.push(...newSerialized);
+    }
+
+    public replaceItem(replacement: IndexJSON) {
+
+        const idx: number = this.serializedMembers.findIndex(
+            (target: IndexJSON) => target.id == replacement.id);
+        if (idx >= 0 ) {
+            const filledReplacement = this.fillEmptyProps([replacement])[0];
+            this.serializedMembers[idx] = filledReplacement;
+        }
+        else {
+            throw new Error("Index not found");
+        }
+    }
 
     public fillEmptyProps(serializedInput: Partial<IndexJSON>[]): IndexJSON[] {
         const requiredKeys: string[] = Object.keys(this.defaultValues);
@@ -119,5 +137,9 @@ export class IndexCollection {
         });
 
         return newMembers;
+    }
+
+    public createGridOutput(sortFn: any, data: any, sort: any) {
+        return sortFn(data.filter((index: any) => index.enabled === true), sort);
     }
 }

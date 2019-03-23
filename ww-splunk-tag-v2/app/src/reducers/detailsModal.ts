@@ -53,7 +53,7 @@ export default (state=initialState, action: any) => {
             return initialState
         case 'collection/UPDATE_FULFILLED':
             return initialState
-        case 'collection/CREATE_FULFILLED':
+        case 'collection/CREATE_SUCCESS':
             return initialState
         case 'detailsModal/CHANGE_FORM_DATA':
             let { field, value } = action.payload

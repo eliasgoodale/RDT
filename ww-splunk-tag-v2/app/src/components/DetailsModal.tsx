@@ -351,7 +351,6 @@ function mapDispatchToProps(dispatch: any) {
     return {
         cancelChanges: () => dispatch(ActionGroup.cancelChanges()),
         saveChanges: (update: any) => {
-            console.log(update)
             dispatch(ActionGroup.collectionUpdate(update))
         },
         createIndex: (newIndex: any) => {
@@ -363,10 +362,12 @@ function mapDispatchToProps(dispatch: any) {
         onRowClick: (e: any) => {
             dispatch(ActionGroup.changeTagInEdit(e.dataItem.id))
         },
+        // TODO Make onFormChange and onTagChange use the same generic action handler
         onFormChange: (e: any) => {
             dispatch(ActionGroup.changeFormData({field: e.target.name, value: e.target.value}))
         },
         onTagChange: (e: any) => {
+            console.log(e);
             dispatch(ActionGroup.changeTagData(e.dataItem.id, e.field, e.value))
         },
         createTag: () => dispatch(ActionGroup.createTag()),

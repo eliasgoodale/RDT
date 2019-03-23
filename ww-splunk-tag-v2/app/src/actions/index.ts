@@ -1,16 +1,8 @@
 import HttpClient from '../utils/client';
 import { SortDescriptor } from '@progress/kendo-data-query';
 import { transform_request_body } from './actions';
+import { client } from '../entities'
 
-
-
-const client = new HttpClient({
-    baseURL: "http://localhost:5000"
-})
-
-client.createEntity({
-    name: 'indexes'
-})
 
 /**
  * There are two entities, indices and details

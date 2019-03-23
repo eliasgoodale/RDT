@@ -1,3 +1,4 @@
+
 export const initialState = {
     fetching: false,
     fetched: false,
@@ -26,7 +27,7 @@ export default (state: any = initialState, action: any) => {
                 ...state,
                 data: state.data
             } 
-        case 'collection/INITIALIZATION_COMPLETE':
+        case 'collection/GET_ALL_SUCCESS':
             return {
                 ...state,
                 data: action.payload

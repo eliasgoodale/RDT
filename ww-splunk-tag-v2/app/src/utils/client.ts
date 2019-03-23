@@ -24,7 +24,7 @@ class HttpClient {
 		endpoints.getAll = ({ query }: any={} ) => this._instance.get(resourceURL, { params: { query } });
 		endpoints.getOne = ({ id }: any) => this._instance.get(`${resourceURL}/${id}`);
 		endpoints.create = ( toCreate: any ) => this._instance.post(resourceURL, toCreate);
-		endpoints.update = ( toUpdate: any ) => this._instance.patch(`${resourceURL}/${toUpdate.id}`, toUpdate);
+		endpoints.update = ( toUpdate: any ) => this._instance.put(`${resourceURL}/${toUpdate.id}`, toUpdate);
 		endpoints.delete = ({ id }: any) => this._instance.delete(`${resourceURL}/${id}`);
 		return endpoints;
 	}
